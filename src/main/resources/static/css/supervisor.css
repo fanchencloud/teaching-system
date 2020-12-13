@@ -1,0 +1,46 @@
+.list li:nth-child(1){
+    background: url("../img/xz.png") 0  center no-repeat;
+}
+.list li:nth-child(2){
+    background: url("../img/kb.png") 0  center no-repeat;
+}
+.list li:nth-child(3){
+    background: url("../img/dw.png") 0  center no-repeat;
+}
+.list li:nth-child(4){
+    background: url("../img/tx.png") 0  center no-repeat;
+}
+.list li:nth-child(5){
+    background: url("../img/ld.png") 0  center no-repeat;
+}
+.list li:nth-child(6){
+    background: url("../img/lb.png") 0  center no-repeat;
+}
+.list li:nth-child(7){
+    background: url("../img/mm.png") 0  center no-repeat;
+}
+.list li:nth-child(8){
+    background: url("../img/tc.png") 0  center no-repeat;
+}
+.list li:hover{
+    background-color: #acd5f5;
+    border-radius: 4px;
+}
+.list li ul{
+    display:none;
+    position:absolute;
+    background-color: #f9f9f9;
+}
+.list li ul li:nth-child(1){
+    background:none;
+}
+.list li ul li:nth-child(2){
+    background:none;
+}
+.list li:nth-child(4):hover ul{
+    display:block;
+}
+.list li:nth-child(5):hover ul{
+    display:block;
+}
+

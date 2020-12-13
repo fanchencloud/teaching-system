@@ -1,0 +1,46 @@
+<html class="pixel-ratio-1" lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>系统登录 - 高校教师督导系统</title>
+    <link rel="stylesheet" href="css/public1.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body class="login_bg">
+<section class="loginBox">
+    <header class="loginHeader">
+        <h1>高校教师督导系统</h1>
+    </header>
+    <section class="loginCont">
+        <form class="loginForm" action="/login" method="post">
+            <div class="inputbox">
+                <label for="type">类型：</label>
+                <select id="type" type="text" name="usertype" placeholder="请选择用户类型">
+                    <option value="1">专家</option>
+                    <option value="2">领导</option>
+                    <option value="0">教师</option>
+                    <option value="3">管理员</option>
+                </select>
+            </div>
+
+
+            <div class="inputbox">
+                <label for="user">用户名：</label>
+                <input id="user" type="text" name="username" placeholder="请输入用户名" required/>
+            </div>
+            <div class="inputbox">
+                <label for="mima">密码：</label>
+                <input id="mima" type="password" name="password" placeholder="请输入密码" required/>
+            </div>
+            <div class="subBtn">
+                <input type="submit" value="登录"/>
+                <input type="reset" value="重置"/>
+            </div>
+
+        </form>
+    </section>
+</section>
+
+</body>
+</html>

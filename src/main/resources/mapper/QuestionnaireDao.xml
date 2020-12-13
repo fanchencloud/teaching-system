@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.chen.teachingsystem.mapper.QuestionnaireDao">
+  <resultMap id="BaseResultMap" type="cn.chen.teachingsystem.entity.Questionnaire">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="teacher_id" jdbcType="INTEGER" property="teacherId" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="attitude" jdbcType="INTEGER" property="attitude" />
+    <result column="content" jdbcType="INTEGER" property="content" />
+    <result column="skill" jdbcType="INTEGER" property="skill" />
+    <result column="effect" jdbcType="INTEGER" property="effect" />
+    <result column="feature" jdbcType="INTEGER" property="feature" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_edit_time" jdbcType="TIMESTAMP" property="lastEditTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, teacher_id, course_id, attitude, content, skill, effect, feature, total, 
+    create_time, last_edit_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from questionnaire
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from questionnaire
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.chen.teachingsystem.entity.Questionnaire" useGeneratedKeys="true">
+    insert into questionnaire (user_id, teacher_id, course_id, 
+      attitude, content, skill, 
+      effect, feature, total, 
+      create_time, last_edit_time)
+    values (#{userId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, 
+      #{attitude,jdbcType=INTEGER}, #{content,jdbcType=INTEGER}, #{skill,jdbcType=INTEGER}, 
+      #{effect,jdbcType=INTEGER}, #{feature,jdbcType=INTEGER}, #{total,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.chen.teachingsystem.entity.Questionnaire" useGeneratedKeys="true">
+    insert into questionnaire
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="teacherId != null">
+        teacher_id,
+      </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="attitude != null">
+        attitude,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="skill != null">
+        skill,
+      </if>
+      <if test="effect != null">
+        effect,
+      </if>
+      <if test="feature != null">
+        feature,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastEditTime != null">
+        last_edit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId != null">
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="attitude != null">
+        #{attitude,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=INTEGER},
+      </if>
+      <if test="skill != null">
+        #{skill,jdbcType=INTEGER},
+      </if>
+      <if test="effect != null">
+        #{effect,jdbcType=INTEGER},
+      </if>
+      <if test="feature != null">
+        #{feature,jdbcType=INTEGER},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditTime != null">
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.chen.teachingsystem.entity.Questionnaire">
+    update questionnaire
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId != null">
+        teacher_id = #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        course_id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="attitude != null">
+        attitude = #{attitude,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=INTEGER},
+      </if>
+      <if test="skill != null">
+        skill = #{skill,jdbcType=INTEGER},
+      </if>
+      <if test="effect != null">
+        effect = #{effect,jdbcType=INTEGER},
+      </if>
+      <if test="feature != null">
+        feature = #{feature,jdbcType=INTEGER},
+      </if>
+      <if test="total != null">
+        total = #{total,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditTime != null">
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.chen.teachingsystem.entity.Questionnaire">
+    update questionnaire
+    set user_id = #{userId,jdbcType=INTEGER},
+      teacher_id = #{teacherId,jdbcType=INTEGER},
+      course_id = #{courseId,jdbcType=INTEGER},
+      attitude = #{attitude,jdbcType=INTEGER},
+      content = #{content,jdbcType=INTEGER},
+      skill = #{skill,jdbcType=INTEGER},
+      effect = #{effect,jdbcType=INTEGER},
+      feature = #{feature,jdbcType=INTEGER},
+      total = #{total,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,15 @@
+.list li:nth-child(1){
+    background: url("../img/yh.png") 0  center no-repeat;
+}
+.list li:nth-child(2){
+    background: url("../img/kb.png") 0  center no-repeat;
+}
+.list li:nth-child(3){
+    background: url("../img/tx.png") 0  center no-repeat;
+}
+.list li:nth-child(4){
+    background: url("../img/lb.png") 0  center no-repeat;
+}
+.list li:nth-child(5){
+    background: url("../img/tc.png") 0  center no-repeat;
+}
