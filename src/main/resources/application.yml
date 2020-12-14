@@ -81,8 +81,8 @@ logging:
     # root日志以WARN级别输出
     root: warn
     cn:
-      fanchencloud:
-        campus: debug
+      chen:
+        teachingsystem: debug
     # 去掉 CONDITIONS EVALUATION REPORT
     org:
       springframework:
@@ -95,7 +95,7 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: cn.chen.teachingsystem.entity
   configuration:
-    map-underscore-to-camel-case: true
+    mapUnderscoreToCamelCase: true
     use-generated-keys: true
     default-fetch-size: 100
     default-statement-timeout: 30

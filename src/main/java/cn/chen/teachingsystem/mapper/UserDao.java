@@ -2,6 +2,9 @@ package cn.chen.teachingsystem.mapper;
 
 import cn.chen.teachingsystem.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface UserDao {
@@ -16,19 +19,27 @@ public interface UserDao {
     /**
      * 添加一个用户到数据库
      *
-     * @param record 用户信息
+     * @param user 用户信息
      * @return 添加结果
      */
-    int insert(User record);
+    int insert(@Param("user") User user);
 
 
-    int insertSelective(User record);
+    int insertSelective(User user);
 
+    /**
+     * 通过用户id查询用户的普通信息
+     *
+     * @param id 用户id
+     * @return 用户基本信息
+     */
     User selectByPrimaryKey(Integer id);
 
     User selectByUsernameAndPassword(String username, String password);
 
-    int updateByPrimaryKeySelective(User record);
+    int updateByPrimaryKeySelective(@Param("user") User user);
 
-    int updateByPrimaryKey(User record);
+    int updateByPrimaryKey(@Param("user") User user);
+
+    List<User> selectByIdOrUsername(Integer userId, String username);
 }

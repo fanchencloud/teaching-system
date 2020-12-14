@@ -56,6 +56,12 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
         <!--  MySQl 连接Jar包 -->
         <dependency>
             <groupId>mysql</groupId>

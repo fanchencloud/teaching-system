@@ -1,6 +1,8 @@
 package cn.chen.teachingsystem.controller;
 
 import cn.chen.teachingsystem.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Time: 20:03
  * @Description: 入口控制器
  */
+@Api(tags = "入口请求")
 @Controller
 public class IndexController {
     private UserService userService;
@@ -26,6 +29,7 @@ public class IndexController {
      *
      * @return 首页
      */
+    @ApiOperation("请求跳转到首页")
     @GetMapping(value = "/login")
     public String loginPage() {
         return "login";
@@ -39,6 +43,7 @@ public class IndexController {
      * @param usertype 用户类别
      * @return 登录结果，页面跳转
      */
+    @ApiOperation("处理登录请求")
     @PostMapping(value = "/login")
     public String login(String username, String password, int usertype) {
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
