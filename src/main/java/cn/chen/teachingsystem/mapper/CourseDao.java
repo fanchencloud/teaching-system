@@ -2,6 +2,7 @@ package cn.chen.teachingsystem.mapper;
 
 import cn.chen.teachingsystem.entity.Course;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,4 +28,35 @@ public interface CourseDao {
     List<Course> selectAll();
 
     List<Course> selectByCondition(Integer courseId, String courseName, String college);
+
+    /**
+     * 增加课程编号为 id 的课程的选课人数
+     *
+     * @param id 课程编号
+     */
+    int increaseMember(Integer id);
+
+    /**
+     * 减少课程编号为 id 的课程的选课人数
+     *
+     * @param id 课程编号
+     */
+    int reduceMember(Integer id);
+
+    /**
+     * 查询用户编号为<p>userId</p>、课程号、上课时件等条件的督导选择的课程
+     *
+     * @param userId     用户编号
+     * @param courseName 课程名
+     * @param time       上课时间
+     * @param finish     完成情况
+     * @return 选课列表
+     */
+    List<Course> getSelectedCourse(
+            @Param("userId") Integer userId,
+            @Param("courseName") String courseName,
+            @Param("courseId") Integer courseId,
+            @Param("time") String time,
+            @Param("college") String college,
+            @Param("finish") Integer finish);
 }

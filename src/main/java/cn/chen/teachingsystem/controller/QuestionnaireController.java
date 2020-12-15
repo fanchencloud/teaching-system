@@ -6,10 +6,12 @@ import cn.chen.teachingsystem.mapper.QuestionnaireListMapper;
 import cn.chen.teachingsystem.model.JsonResponse;
 import cn.chen.teachingsystem.model.QuestionnaireList;
 import cn.chen.teachingsystem.service.CourseService;
+import cn.chen.teachingsystem.service.QuestionnaireService;
 import cn.chen.teachingsystem.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +35,7 @@ public class QuestionnaireController {
     private QuestionnaireListMapper questionnaireListMapper;
     private UserService service;
     private CourseService courseService;
+    private QuestionnaireService questionnaireService;
 
     @GetMapping(value = "/search")
     @ResponseBody
@@ -73,6 +76,31 @@ public class QuestionnaireController {
         }
     }
 
+    /**
+     * 获取用户id为<P>userId</P>的督导员可以填写问卷的课程列表
+     *
+     * @param userId   督导员的用户id
+     * @param courseId 课程编号
+     * @param college  课程所属学院
+     * @return 课程列表
+     */
+    @GetMapping(value = "/getQuestionnaireCourse")
+    @ResponseBody
+    @ApiOperation("获取用户id为 userId 的督导员可以填写问卷的课程列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "(督导)用户编号（必填）", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "courseId", value = "课程编号", required = false, dataType = "Integer"),
+            @ApiImplicitParam(name = "college", value = "课程所属学院", required = false, dataType = "String")
+    })
+    public JsonResponse getQuestionnaireCourse(
+            @RequestParam(value = "userId", required = false) Integer userId,
+            @RequestParam(value = "courseId", required = false) Integer courseId,
+            @RequestParam(value = "college", required = false) String college
+    ) {
+        List<Course> courseList = questionnaireService.getQuestionnaireCourse(userId, courseId, college);
+        return JsonResponse.ok(courseList);
+    }
+
     @Autowired
     public void setService(UserService service) {
         this.service = service;
@@ -86,5 +114,10 @@ public class QuestionnaireController {
     @Autowired
     public void setCourseService(CourseService courseService) {
         this.courseService = courseService;
+    }
+
+    @Autowired
+    public void setQuestionnaireService(QuestionnaireService questionnaireService) {
+        this.questionnaireService = questionnaireService;
     }
 }

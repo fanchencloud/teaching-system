@@ -16,4 +16,11 @@ public interface SupervisionDao {
     int updateByPrimaryKeySelective(Supervision record);
 
     int updateByPrimaryKey(Supervision record);
+
+    /**
+     * 通过督导用户id查询督导完成情况
+     * @param userId 督导用户id
+     * @return 督导完成情况
+     */
+    Supervision selectByUserId(Integer userId);
 }

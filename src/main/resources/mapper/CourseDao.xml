@@ -5,6 +5,7 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="teacher_id" jdbcType="INTEGER" property="teacherId"/>
         <result column="capacity" jdbcType="INTEGER" property="capacity"/>
+        <result column="member" jdbcType="INTEGER" property="member"/>
         <result column="course_name" jdbcType="VARCHAR" property="courseName"/>
         <result column="place" jdbcType="VARCHAR" property="place"/>
         <result column="college" jdbcType="VARCHAR" property="college"/>
@@ -17,11 +18,11 @@
         <result column="time" jdbcType="VARCHAR" property="time"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, teacher_id, capacity, course_name, place, college, content, start_time, end_time,
+        id, teacher_id, capacity, `member`,course_name, place, college, content, start_time, end_time,
     create_time, last_edit_time, `type`, `time`
     </sql>
     <sql id="General_Column_List">
-        id, teacher_id, capacity, course_name, place, college, content, start_time, end_time,`type`, `time`
+        id, teacher_id, capacity, course_name,`member` place, college, content, start_time, end_time,`type`, `time`
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -42,9 +43,30 @@
         <where>
             <if test="courseId != null">and id = #{courseId}</if>
             <if test="courseName != null">
-                and  course_name like '%${courseName}%'
+                and course_name like '%${courseName}%'
             </if>
             <if test="college != null">and college = #{college}</if>
+        </where>
+    </select>
+    <select id="getSelectedCourse" resultType="cn.chen.teachingsystem.entity.Course">
+        select
+        <include refid="General_Column_List"/>
+        from course
+        <where>
+            <if test="userId != null">
+                and id in (
+                select course_id from elective where user_id = #{userId,jdbcType=INTEGER}
+                <if test="finish != null">and finish = #{finish,jdbcType=INTEGER}</if>
+                )
+            </if>
+            <if test="courseName != null">
+                and course_name like '%${courseName}%'
+            </if>
+            <if test="college != null">and college = #{college,jdbcType=VARCHAR}</if>
+            <if test="courseId != null">and id = #{courseId,jdbcType=INTEGER}</if>
+            <if test="time != null">
+                and time like '%${time}%'
+            </if>
         </where>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -201,4 +223,15 @@
             `time`         = #{time,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
+    <update id="increaseMember">
+        update `course`
+        set `member` = `member` + 1
+        where id = #{id,jdbcType=INTEGER};
+    </update>
+    <update id="reduceMember">
+        update `course`
+        set `member` = IF(`member` &lt; 1, 0, `member` - 1)
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
 </mapper>

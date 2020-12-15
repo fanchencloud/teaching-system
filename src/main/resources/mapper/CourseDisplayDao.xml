@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.chen.teachingsystem.mapper.CourseDisplayDao">
+    <resultMap id="BaseCourseDisplayDaoResultMap" type="cn.chen.teachingsystem.model.CourseDisplay">
+        <association property="user" javaType="cn.chen.teachingsystem.entity.User">
+            <id column="u_id" jdbcType="INTEGER" property="id"/>
+            <result column="name" jdbcType="VARCHAR" property="name"/>
+        </association>
+        <association property="course" javaType="cn.chen.teachingsystem.entity.Course">
+            <id column="id" jdbcType="INTEGER" property="id"/>
+            <result column="teacher_id" jdbcType="INTEGER" property="teacherId"/>
+            <result column="capacity" jdbcType="INTEGER" property="capacity"/>
+            <result column="course_name" jdbcType="VARCHAR" property="courseName"/>
+            <result column="place" jdbcType="VARCHAR" property="place"/>
+            <result column="college" jdbcType="VARCHAR" property="college"/>
+            <result column="content" jdbcType="VARCHAR" property="content"/>
+            <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+            <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+            <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+            <result column="last_edit_time" jdbcType="TIMESTAMP" property="lastEditTime"/>
+            <result column="type" jdbcType="VARCHAR" property="type"/>
+            <result column="time" jdbcType="VARCHAR" property="time"/>
+        </association>
+    </resultMap>
+    <select id="getCourseList" resultMap="BaseCourseDisplayDaoResultMap">
+        select course.id,
+        teacher_id,
+        capacity,
+        course_name,
+        place,
+        college,
+        content,
+        start_time,
+        end_time,
+        course.create_time,
+        course.last_edit_time,
+        type,
+        time,
+        user.id as u_id,
+        name
+        from course
+        left join user on course.teacher_id = user.id
+        <where>
+            <if test="courseName != null">and course_name = #{courseName}</if>
+            <if test="courseId != null">and course.id = #{courseId}</if>
+            <if test="courseTime != null">
+                and course.time like '%${courseTime}%'
+            </if>
+            <if test="courseType != null">
+                and course.type like '%${courseType}%'
+            </if>
+            <if test="college != null">
+                and course.college like '%${college}%'
+            </if>
+        </where>
+    </select>
+</mapper>

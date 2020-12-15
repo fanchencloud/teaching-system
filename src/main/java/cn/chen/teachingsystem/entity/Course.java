@@ -11,8 +11,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * course
- * @author 
+ * course 课程信息s
+ *
+ * @author
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -35,6 +36,12 @@ public class Course extends Base implements Serializable {
      */
     @ApiModelProperty("课程容量")
     private Integer capacity;
+
+    /**
+     * 课程已选课人数
+     */
+    @ApiModelProperty("课程已选课人数")
+    private Integer member;
 
     /**
      * 课程名
