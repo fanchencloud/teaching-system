@@ -9,6 +9,22 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="last_edit_time" jdbcType="TIMESTAMP" property="lastEditTime"/>
     </resultMap>
+    <resultMap id="SupervisionModel" type="cn.chen.teachingsystem.model.SupervisionModel">
+        <association property="supervision" javaType="cn.chen.teachingsystem.entity.Supervision">
+            <id column="id" jdbcType="INTEGER" property="id"/>
+            <result column="user_id" jdbcType="INTEGER" property="userId"/>
+            <result column="amount" jdbcType="INTEGER" property="amount"/>
+            <result column="finish" jdbcType="INTEGER" property="finish"/>
+            <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+            <result column="last_edit_time" jdbcType="TIMESTAMP" property="lastEditTime"/>
+        </association>
+        <association property="user" javaType="cn.chen.teachingsystem.entity.User">
+            <id column="u_id" jdbcType="INTEGER" property="id"/>
+            <result column="username" jdbcType="VARCHAR" property="username"/>
+            <result column="name" jdbcType="VARCHAR" property="name"/>
+            <result column="user_type" jdbcType="INTEGER" property="userType"/>
+        </association>
+    </resultMap>
     <sql id="Base_Column_List">
         id, user_id, amount, finish, create_time, last_edit_time
     </sql>
@@ -23,6 +39,17 @@
         <include refid="Base_Column_List"/>
         from chen.supervision
         where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <select id="getSuperviseTaskProgress" resultMap="SupervisionModel">
+        select s.id, user_id, amount, finish, u.name, u.user_type
+        from
+        supervision s left join user u on s.user_id = u.id
+        <where>
+            <if test="username != null">
+                u.name like '%${username}%'
+            </if>
+            <if test="userId!=null">and user_id = #{userId}</if>
+        </where>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete

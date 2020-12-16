@@ -2,9 +2,12 @@ package cn.chen.teachingsystem.service.impl;
 
 import cn.chen.teachingsystem.entity.Supervision;
 import cn.chen.teachingsystem.mapper.SupervisionDao;
+import cn.chen.teachingsystem.model.SupervisionModel;
 import cn.chen.teachingsystem.service.SupervisionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by handsome programmer.
@@ -25,6 +28,11 @@ public class SupervisionServiceImpl implements SupervisionService {
     @Override
     public Supervision getCompletion(Integer userId) {
         return supervisionDao.selectByUserId(userId);
+    }
+
+    @Override
+    public List<SupervisionModel> getSuperviseTaskProgress(Integer userId, String username) {
+        return supervisionDao.getSuperviseTaskProgress(userId, username);
     }
 
     @Autowired

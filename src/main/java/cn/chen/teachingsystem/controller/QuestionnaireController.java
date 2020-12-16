@@ -39,7 +39,7 @@ public class QuestionnaireController {
 
     @GetMapping(value = "/search")
     @ResponseBody
-    @ApiOperation("")
+    @ApiOperation("获取问卷列表展示")
     public JsonResponse getQuestionnaireList(
             @RequestParam(value = "courseId", required = false) Integer courseId,
             @RequestParam(value = "courseName", required = false) String courseName,
