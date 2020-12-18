@@ -1,6 +1,7 @@
 package cn.chen.teachingsystem.service;
 
 import cn.chen.teachingsystem.entity.Course;
+import cn.chen.teachingsystem.entity.Questionnaire;
 
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface QuestionnaireService {
      * @return 课程列表
      */
     List<Course> getQuestionnaireCourse(Integer userId,Integer courseId,String college);
+
+    boolean fillInTheQuestionnaire(Questionnaire questionnaire);
 }

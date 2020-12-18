@@ -1,6 +1,7 @@
 package cn.chen.teachingsystem.controller;
 
 import cn.chen.teachingsystem.entity.Course;
+import cn.chen.teachingsystem.entity.Questionnaire;
 import cn.chen.teachingsystem.entity.User;
 import cn.chen.teachingsystem.mapper.QuestionnaireListMapper;
 import cn.chen.teachingsystem.model.JsonResponse;
@@ -16,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by handsome programmer.
@@ -33,13 +36,28 @@ import java.util.List;
 public class QuestionnaireController {
 
     private QuestionnaireListMapper questionnaireListMapper;
-    private UserService service;
+    private UserService userService;
     private CourseService courseService;
     private QuestionnaireService questionnaireService;
 
+    /**
+     * 管理员问卷管理页面
+     *
+     * @param courseId    课堂号
+     * @param courseName  课堂名
+     * @param teacherId   教师工号
+     * @param teacherName 教师姓名
+     * @return 问卷列表
+     */
     @GetMapping(value = "/search")
     @ResponseBody
-    @ApiOperation("获取问卷列表展示")
+    @ApiOperation("获取问卷列表展示-管理员")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "课程编号", required = false, dataType = "Integer"),
+            @ApiImplicitParam(name = "courseName", value = "课程名", required = false, dataType = "String"),
+            @ApiImplicitParam(name = "teacherId", value = "教师工号", required = false, dataType = "Integer"),
+            @ApiImplicitParam(name = "teacherName", value = "教师姓名", required = false, dataType = "String")
+    })
     public JsonResponse getQuestionnaireList(
             @RequestParam(value = "courseId", required = false) Integer courseId,
             @RequestParam(value = "courseName", required = false) String courseName,
@@ -48,7 +66,7 @@ public class QuestionnaireController {
         List<QuestionnaireList> questionnaireLists = questionnaireListMapper.selectByCondition(courseId, courseName, teacherId, teacherName, null);
         for (int i = 0; i < questionnaireLists.size(); i++) {
             QuestionnaireList questionnaireList = questionnaireLists.get(i);
-            User userInformation = service.getUserInformation(questionnaireList.getQuestionnaire().getUserId());
+            User userInformation = userService.getUserInformation(questionnaireList.getQuestionnaire().getUserId());
             questionnaireList.setAppraiser(userInformation.getName());
             questionnaireLists.set(i, questionnaireList);
         }
@@ -95,15 +113,60 @@ public class QuestionnaireController {
     public JsonResponse getQuestionnaireCourse(
             @RequestParam(value = "userId", required = false) Integer userId,
             @RequestParam(value = "courseId", required = false) Integer courseId,
-            @RequestParam(value = "college", required = false) String college
-    ) {
+            @RequestParam(value = "college", required = false) String college) {
         List<Course> courseList = questionnaireService.getQuestionnaireCourse(userId, courseId, college);
         return JsonResponse.ok(courseList);
     }
 
+    /**
+     * 获取填写一份问卷的时候需要显示的信息
+     *
+     * @param userId   督导的用户id
+     * @param courseId 课程的课程id
+     * @return 信息数据
+     */
+    @GetMapping(value = "/fillInTheQuestionnaire")
+    @ResponseBody
+    @ApiOperation("获取填写一份问卷的时候需要显示的信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "(督导)用户编号（必填）", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "courseId", value = "课程编号（必填）", required = true, dataType = "Integer")
+    })
+    public JsonResponse fillInTheQuestionnaire(Integer userId, Integer courseId) {
+        // 1- 查询督导信息
+        User supervise = userService.getUserInformation(userId);
+        // 2- 查询课程信息
+        List<Course> courseList = courseService.findCourse(courseId, null, null);
+        Course course = courseList.get(0);
+        // 3- 查询教师信息
+        User teacher = userService.getUserInformation(course.getTeacherId());
+        Map<String, Object> map = new HashMap<>(3);
+        map.put("supervise", supervise);
+        map.put("course", course);
+        map.put("teacher", teacher);
+        return JsonResponse.ok(map);
+    }
+
+    /**
+     * 填写一份问卷
+     *
+     * @param questionnaire 问卷信息
+     * @return 填写结果
+     */
+    @PostMapping(value = "/fillInTheQuestionnaire")
+    @ResponseBody
+    @ApiOperation("填写一份问卷")
+    public JsonResponse fillInTheQuestionnaire(Questionnaire questionnaire) {
+        if (questionnaireService.fillInTheQuestionnaire(questionnaire)) {
+            return JsonResponse.ok();
+        } else {
+            return JsonResponse.errorMsg("填写失败！");
+        }
+    }
+
     @Autowired
-    public void setService(UserService service) {
-        this.service = service;
+    public void setService(UserService userService) {
+        this.userService = userService;
     }
 
     @Autowired

@@ -30,6 +30,12 @@
         from user
         where id = #{id,jdbcType=INTEGER}
     </select>
+    <select id="selectByPrimaryKey2" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="general_Column_List"/>
+        from user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
     <select id="selectByUsernameAndPassword" resultType="cn.chen.teachingsystem.entity.User">
         select
         <include refid="Base_Column_List"/>

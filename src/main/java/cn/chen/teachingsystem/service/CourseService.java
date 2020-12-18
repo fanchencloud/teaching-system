@@ -78,7 +78,7 @@ public interface CourseService {
      * @param time       上课时间
      * @return 选课列表
      */
-    public List<Course> getSelectedCourse(Integer userId, String courseName, String time);
+    List<CourseDisplay> getSelectedCourse(Integer userId, String courseName, String time);
 
     /**
      * 督导对已选课程进行签到

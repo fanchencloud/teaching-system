@@ -135,6 +135,13 @@ public class CourseController {
     @GetMapping(value = "/getCourseList")
     @ResponseBody
     @ApiOperation("通过课程编号、课程名、课程上课时间、课程类型、所属学院等条件查询督导选课所需要的课程列表(督导使用)")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "课程编号", required = false, dataType = "Integer"),
+            @ApiImplicitParam(name = "courseName", value = "课程名", required = false, dataType = "String"),
+            @ApiImplicitParam(name = "courseTime", value = "课程上课时间", required = false, dataType = "String"),
+            @ApiImplicitParam(name = "courseType", value = "课程类型", required = false, dataType = "String"),
+            @ApiImplicitParam(name = "college", value = "课程所属学院", required = false, dataType = "String")
+    })
     public JsonResponse getCourseList(
             @RequestParam(value = "courseId", required = false) Integer courseId,
             @RequestParam(value = "courseName", required = false) String courseName,
@@ -175,7 +182,7 @@ public class CourseController {
      * @param time       上课时间
      * @return 选课列表
      */
-    @PostMapping(value = "/elected")
+    @GetMapping(value = "/elected")
     @ResponseBody
     @ApiOperation("已选课程")
     @ApiImplicitParams({

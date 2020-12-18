@@ -65,4 +65,20 @@ public interface UserService {
      * @return 删除结果
      */
     boolean delete(Integer userId);
+
+    /**
+     * 重置用户密码
+     *
+     * @param userId 用户编号
+     * @return 重置结果
+     */
+    boolean resetPassword(Integer userId);
+
+    /**
+     * 修改用户密码
+     *
+     * @param userId 用户id
+     * @return 修改结果
+     */
+    int modifyPassword(Integer userId, String oldPassword, String newPassword);
 }

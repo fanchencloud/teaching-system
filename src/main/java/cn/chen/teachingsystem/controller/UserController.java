@@ -1,15 +1,20 @@
 package cn.chen.teachingsystem.controller;
 
+import cn.chen.teachingsystem.conf.ApplicationConfig;
 import cn.chen.teachingsystem.entity.User;
 import cn.chen.teachingsystem.model.JsonResponse;
 import cn.chen.teachingsystem.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static cn.chen.teachingsystem.conf.ApplicationConfig.*;
 
 /**
  * Created by handsome programmer.
@@ -97,6 +102,51 @@ public class UserController {
         User user = userService.getUserInformation(userId);
         return JsonResponse.ok(user);
     }
+
+    /**
+     * 管理员重置用户密码
+     *
+     * @param userId 用户id
+     * @return 重置结果
+     */
+    @GetMapping(value = "/resetPassword")
+    @ResponseBody
+    @ApiOperation("管理员重置用户密码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户编号", required = true, dataType = "Integer")})
+    public JsonResponse resetPasswordByAdmin(Integer userId) {
+        if (userService.resetPassword(userId)) {
+            return JsonResponse.ok();
+        } else {
+            return JsonResponse.errorMsg("重置失败！");
+        }
+    }
+
+    /**
+     * 修改用户密码
+     *
+     * @param userId 用户id
+     * @return 修改结果
+     */
+    @GetMapping(value = "/modifyPassword")
+    @ResponseBody
+    @ApiOperation("修改用户密码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户编号", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "oldPassword", value = "用户旧密码", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "newPassword", value = "用户新密码", required = true, dataType = "String")
+    })
+    public JsonResponse modifyPassword(Integer userId, String oldPassword, String newPassword) {
+        int res = userService.modifyPassword(userId, oldPassword, newPassword);
+        if (res == APPLICATION_OK) {
+            return JsonResponse.ok();
+        } else if (res == USER_PASSWORD_ERROR) {
+            return JsonResponse.errorMsg("密码错误，修改失败！");
+        } else {
+            return JsonResponse.errorMsg("修改失败！");
+        }
+    }
+
 
     /**
      * 通过用户名或者用户编号查询用户信息

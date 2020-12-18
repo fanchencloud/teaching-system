@@ -37,4 +37,6 @@ public interface SupervisionDao {
      * @return 督导任务进度
      */
     List<SupervisionModel> getSuperviseTaskProgress(@Param("userId") Integer userId, @Param("username") String username);
+
+    int increaseFinish(Integer userId);
 }

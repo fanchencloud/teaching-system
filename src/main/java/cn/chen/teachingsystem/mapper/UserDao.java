@@ -35,6 +35,14 @@ public interface UserDao {
      */
     User selectByPrimaryKey(Integer id);
 
+    /**
+     * 通过用户id查询用户的普通信息
+     *
+     * @param id 用户id
+     * @return 用户基本信息
+     */
+    User selectByPrimaryKey2(Integer id);
+
     User selectByUsernameAndPassword(String username, String password);
 
     int updateByPrimaryKeySelective(@Param("user") User user);
