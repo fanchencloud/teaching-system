@@ -56,8 +56,7 @@ public class QuestionnaireController {
             @ApiImplicitParam(name = "courseId", value = "课程编号", required = false, dataType = "Integer"),
             @ApiImplicitParam(name = "courseName", value = "课程名", required = false, dataType = "String"),
             @ApiImplicitParam(name = "teacherId", value = "教师工号", required = false, dataType = "Integer"),
-            @ApiImplicitParam(name = "teacherName", value = "教师姓名", required = false, dataType = "String")
-    })
+            @ApiImplicitParam(name = "teacherName", value = "教师姓名", required = false, dataType = "String")})
     public JsonResponse getQuestionnaireList(
             @RequestParam(value = "courseId", required = false) Integer courseId,
             @RequestParam(value = "courseName", required = false) String courseName,

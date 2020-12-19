@@ -81,4 +81,13 @@ public interface UserService {
      * @return 修改结果
      */
     int modifyPassword(Integer userId, String oldPassword, String newPassword);
+
+    /**
+     * 根据教师编号或者教师姓名查询教师信息
+     *
+     * @param teacherId   教师工号
+     * @param teacherName 教师姓名
+     * @return 教师信息列表
+     */
+    List<User> selectByIdOrName(Integer teacherId, String teacherName);
 }

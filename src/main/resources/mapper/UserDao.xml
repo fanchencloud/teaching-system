@@ -54,6 +54,17 @@
             <if test="userId!=null">and id = #{userId}</if>
         </where>
     </select>
+    <select id="selectByIdOrName" resultType="cn.chen.teachingsystem.entity.User">
+        select
+        <include refid="general_Column_List"/>
+        from user
+        <where>
+            <if test="name != null">
+                name like '%${name}%'
+            </if>
+            <if test="userId != null">and id = #{userId}</if>
+        </where>
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from user

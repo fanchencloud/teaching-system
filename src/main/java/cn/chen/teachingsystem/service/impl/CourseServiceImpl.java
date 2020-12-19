@@ -141,6 +141,32 @@ public class CourseServiceImpl implements CourseService {
         return electiveDao.sigIn(userId, courseId) > 0;
     }
 
+    @Override
+    public List<Course> findCourseListByTeacherId(Integer teacherId) {
+        return courseDao.findCourseListByTeacherId(teacherId);
+    }
+
+    @Override
+    public Course selectByPrimaryKey(Integer courseId) {
+        return courseDao.selectByPrimaryKey(courseId);
+    }
+
+    @Override
+    public List<Course> selectCourseBeEvaluated() {
+        return courseDao.selectCourseBeEvaluated();
+    }
+
+    /**
+     * 根据教师编号查询开设的课程数量
+     *
+     * @param teacherId 教师id
+     * @return 开设课程数量
+     */
+    @Override
+    public Integer getNumberOfCourse(Integer teacherId) {
+        return courseDao.getNumberOfCourse(teacherId);
+    }
+
     @Autowired
     public void setCourseDao(CourseDao courseDao) {
         this.courseDao = courseDao;

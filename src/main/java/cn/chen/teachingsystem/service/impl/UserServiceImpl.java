@@ -85,6 +85,18 @@ public class UserServiceImpl implements UserService {
         return userDao.updateByPrimaryKeySelective(user) > 0 ? ApplicationConfig.APPLICATION_OK : ApplicationConfig.APPLICATION_ERROR;
     }
 
+    /**
+     * 根据教师编号或者教师姓名查询教师信息
+     *
+     * @param teacherId   教师工号
+     * @param teacherName 教师姓名
+     * @return 教师信息列表
+     */
+    @Override
+    public List<User> selectByIdOrName(Integer teacherId, String teacherName) {
+        return userDao.selectByIdOrName(teacherId, teacherName);
+    }
+
     @Autowired
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;

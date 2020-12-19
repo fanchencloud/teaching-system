@@ -69,6 +69,24 @@
             </if>
         </where>
     </select>
+    <select id="findCourseListByTeacherId" resultType="cn.chen.teachingsystem.entity.Course">
+        select
+        <include refid="General_Column_List"/>
+        from course
+        where teacher_id = #{teacherId,jdbcType=INTEGER}
+        and id in (select distinct(course_id) from elective where finish = 2);
+    </select>
+    <select id="selectCourseBeEvaluated" resultType="cn.chen.teachingsystem.entity.Course">
+        select
+        <include refid="Base_Column_List"/>
+        from course
+        where id in (select distinct (course_id) from questionnaire);
+    </select>
+    <select id="getNumberOfCourse" resultType="java.lang.Integer">
+        select count(*)
+        from course
+        where teacher_id = #{teacherId};
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from course

@@ -24,4 +24,14 @@ public class ApplicationConfig {
      * 请求失败
      */
     public static final int APPLICATION_ERROR = 400;
+
+    /**
+     * 评价督导
+     */
+    public static final int APPRAISE_TYPE_SUPERVISE = 1;
+
+    /**
+     * 评价教师
+     */
+    public static final int APPRAISE_TYPE_TEACHER = 2;
 }

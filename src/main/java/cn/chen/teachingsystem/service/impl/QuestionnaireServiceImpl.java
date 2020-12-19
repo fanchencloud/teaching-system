@@ -49,6 +49,11 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     }
 
     @Override
+    public List<Questionnaire> getQuestionnairesByCourseId(Integer courseId) {
+        return questionnaireDao.selectByCourseId(courseId);
+    }
+
+    @Override
     @Transactional
     public boolean fillInTheQuestionnaire(Questionnaire questionnaire) {
         DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
@@ -73,6 +78,21 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
             throw new RuntimeException("修改督导表数据失败！");
         }
         return true;
+    }
+
+    @Override
+    public Questionnaire getQuestionnairesById(Integer id) {
+        return questionnaireDao.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 获取所有的问卷列表
+     *
+     * @return 问卷列表
+     */
+    @Override
+    public List<Questionnaire> getAllQuestionnaireList() {
+        return questionnaireDao.getAllQuestionnaireList();
     }
 
     @Autowired

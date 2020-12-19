@@ -32,4 +32,12 @@ public interface SupervisionService {
      */
     List<SupervisionModel> getSuperviseTaskProgress(Integer userId, String username);
 
+    /**
+     * 查询 评价督导 页面的督导列表
+     *
+     * @param userId   督导编号
+     * @param userName 督导名字
+     * @return 督导列表
+     */
+    List<SupervisionModel> getSupervisorList(Integer userId, String userName);
 }

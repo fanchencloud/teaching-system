@@ -35,6 +35,18 @@ public class SupervisionServiceImpl implements SupervisionService {
         return supervisionDao.getSuperviseTaskProgress(userId, username);
     }
 
+    /**
+     * 查询 评价督导 页面的督导列表
+     *
+     * @param userId   督导编号
+     * @param userName 督导名字
+     * @return 督导列表
+     */
+    @Override
+    public List<SupervisionModel> getSupervisorList(Integer userId, String userName) {
+        return supervisionDao.getSupervisorList(userId,userName);
+    }
+
     @Autowired
     public void setSupervisionDao(SupervisionDao supervisionDao) {
         this.supervisionDao = supervisionDao;

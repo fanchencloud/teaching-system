@@ -39,4 +39,13 @@ public interface SupervisionDao {
     List<SupervisionModel> getSuperviseTaskProgress(@Param("userId") Integer userId, @Param("username") String username);
 
     int increaseFinish(Integer userId);
+
+    /**
+     * 查询 评价督导 页面的督导列表
+     *
+     * @param userId   督导编号
+     * @param userName 督导名字
+     * @return 督导列表
+     */
+    List<SupervisionModel> getSupervisorList(@Param("userId") Integer userId, @Param("userName") String userName);
 }

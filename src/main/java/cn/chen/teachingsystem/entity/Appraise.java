@@ -1,5 +1,6 @@
 package cn.chen.teachingsystem.entity;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,6 +18,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @ApiModel("领导的评价")
 public class Appraise extends Base implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -4641308808415368068L;
     /**
      * 唯一id
      */
@@ -34,6 +37,12 @@ public class Appraise extends Base implements Serializable {
      */
     @ApiModelProperty("教师id")
     private Integer teacherId;
+
+    /**
+     * 评论类型：1-领导对督导的评价，2-领导对教师的评价
+     */
+    @ApiModelProperty("评论类型：1-领导对督导的评价，2-领导对教师的评价")
+    private Integer type;
 
     /**
      * 评价内容

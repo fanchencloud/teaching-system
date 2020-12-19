@@ -50,4 +50,5 @@ public interface UserDao {
     int updateByPrimaryKey(@Param("user") User user);
 
     List<User> selectByIdOrUsername(Integer userId, String username);
+    List<User> selectByIdOrName(@Param("userId") Integer userId, @Param("name") String name);
 }

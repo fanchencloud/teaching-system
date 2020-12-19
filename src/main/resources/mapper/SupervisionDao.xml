@@ -51,6 +51,30 @@
             <if test="userId!=null">and user_id = #{userId}</if>
         </where>
     </select>
+    <select id="getSupervisorList" resultMap="SupervisionModel">
+        select user_id,
+        amount,
+        finish,
+        u.id as u_id,
+        username,
+        password,
+        name,
+        user_type,
+        level,
+        sex,
+        birthday,
+        address,
+        age,
+        phone
+        from supervision s
+        left join user u on s.user_id = u.id
+        <where>
+            <if test="userName != null">
+                u.name like '%${userName}%'
+            </if>
+            <if test="userId!=null">and u.id = #{userId}</if>
+        </where>
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from supervision

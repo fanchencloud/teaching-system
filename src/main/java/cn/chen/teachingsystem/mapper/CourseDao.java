@@ -59,4 +59,22 @@ public interface CourseDao {
             @Param("time") String time,
             @Param("college") String college,
             @Param("finish") Integer finish);
+
+    List<Course> findCourseListByTeacherId(Integer teacherId);
+
+    /**
+     * 查询已被督导评价的课程
+     *
+     * @return 课程列表
+     */
+    List<Course> selectCourseBeEvaluated();
+
+
+    /**
+     * 根据教师编号查询开设的课程数量
+     *
+     * @param teacherId 教师id
+     * @return 开设课程数量
+     */
+    Integer getNumberOfCourse(Integer teacherId);
 }

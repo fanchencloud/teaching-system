@@ -2,6 +2,7 @@ package cn.chen.teachingsystem.service;
 
 import cn.chen.teachingsystem.entity.Course;
 import cn.chen.teachingsystem.model.CourseDisplay;
+import io.swagger.models.auth.In;
 
 import java.util.List;
 
@@ -87,5 +88,30 @@ public interface CourseService {
      * @param courseId 课程id
      * @return 签到结果
      */
-    boolean signIn(Integer userId, Integer courseId) ;
+    boolean signIn(Integer userId, Integer courseId);
+
+    List<Course> findCourseListByTeacherId(Integer teacherId);
+
+    /**
+     * 通过课程编号查询课程信息
+     *
+     * @param courseId 课程编号
+     * @return 课程信息
+     */
+    Course selectByPrimaryKey(Integer courseId);
+
+    /**
+     * 查询已被评价的课程
+     *
+     * @return 课程列表
+     */
+    List<Course> selectCourseBeEvaluated();
+
+    /**
+     * 根据教师编号查询开设的课程数量
+     *
+     * @param teacherId 教师id
+     * @return 开设课程数量
+     */
+    Integer getNumberOfCourse(Integer teacherId);
 }
