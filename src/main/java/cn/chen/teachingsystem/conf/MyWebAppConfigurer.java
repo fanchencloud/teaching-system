@@ -31,5 +31,11 @@ public class MyWebAppConfigurer implements WebMvcConfigurer {
 //        // 拦截所有请求路径为 /admin 开头的请求
 //        registry.addInterceptor(getMyInterceptor()).excludePathPatterns("/admin/login").addPathPatterns("/admin/*");
 //    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");
+    }
 }
 

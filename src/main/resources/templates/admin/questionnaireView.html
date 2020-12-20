@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>高校教学督导系统</title>
+        <link rel="stylesheet" href="../css/public.css"/>
+        <link rel="stylesheet" href="../css/style.css"/>
+        <link rel="stylesheet" href="../css/administrator.css">
+    </head>
+    <body>
+    <!--头部-->
+    <header class="publicHeader">
+        <h1>高校教学督导系统</h1>
+    
+        <div class="publicHeaderR">
+            <p><span id="hours"></span><span>！</span><span style="color: #fff21b"> 管理员</span> , 欢迎你！</p>
+            <a href="../login.html">退出</a>
+        </div>
+    </header>
+    <!--时间-->
+    <section class="publicTime">
+        <span id="time"></span>
+        <p>温馨提示：为了能正常浏览，请使用高版本浏览器！（IE10+）</p>
+    </section>
+<!--主体内容-->
+    <section class="publicMian ">
+        <div class="left">
+            <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
+            <nav>
+                <ul class="list">
+                    <li><a href="userList.html">用户管理</a></li>
+                    <li><a href="courseList.html">课程管理</a></li>
+                    <li id="active"><a href="questionnaireList.html">问卷管理</a></li>
+                    <li><a href="noticeList.html">公告管理</a></li>
+                    <li><a href="evaluate.html">评优推优</a></li>
+                    <li><a href="../login.html">退出系统</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="right">
+            <div class="location">
+                <strong>你现在所在的位置是:</strong>
+                <span>问卷管理页面  >> 问卷信息查看页面</span>
+            </div>
+            <div class="search">
+                <strong>教师工号:</strong>
+                <span>T100001</span>
+                <strong style="margin-left: 20px;">教师姓名:</strong>
+                <span>张三</span>
+                <strong style="margin-left: 20px;">课堂号:</strong>
+                <span>C100001</span>
+                <strong style="margin-left: 20px;">课堂名:</strong>
+                <span>数据结构</span>
+                <a style="margin-left: -40px;" href="questionnaireList.html">返回</a>
+                <a style="margin-left: -20px;" href="questionnaireAdd.html">总结评价</a>
+            </div>
+            <div class="search">
+                <span>课堂号：</span>
+                <input type="text" placeholder="请输入课堂号"/>
+                <span>教师姓名：</span>
+                <input type="text" placeholder="请输入教师姓名"/>
+                <input type="button" value="查询"/>
+            </div>
+            <!--用户-->
+            <table class="Table" cellpadding="0" cellspacing="0">
+                <tr class="firstTr">
+                    <th width="25%">督导工号</th>
+                    <th width="25%">督导姓名</th>
+                    <th width="25%">问卷编号</th>
+                    <th width="25%">操作</th>
+                </tr>
+                <tr>
+                    <td>E100001</td>
+                    <td>韩露</td>
+                    <td>20</td>
+                    <td>
+                        <a href="questionnaireContent.html"><img src="../img/read.png" alt="查看" title="查看"/></a>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>E100001</td>
+                    <td>韩露</td>
+                    <td>12</td>
+                    <td>
+                        <a href="questionnaireContent.html"><img src="../img/read.png" alt="查看" title="查看"/></a>
+                        
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </section>
+
+
+    <footer class="footer">
+    </footer>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/time.js"></script>
+
+</body>
+</html>

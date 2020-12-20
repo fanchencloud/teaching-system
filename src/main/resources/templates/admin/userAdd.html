@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>高校教学督导系统</title>
+    <link rel="stylesheet" href="../css/public.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/administrator.css">
+</head>
+<body>
+<!--头部-->
+<header class="publicHeader">
+    <h1>高校教学督导系统</h1>
+
+    <div class="publicHeaderR">
+        <p><span id="hours"></span><span>！</span><span style="color: #fff21b"> 管理员</span> , 欢迎你！</p>
+        <a href="../login.html">退出</a>
+    </div>
+</header>
+<!--时间-->
+<section class="publicTime">
+    <span id="time"></span>
+    <p>温馨提示：为了能正常浏览，请使用高版本浏览器！（IE10+）</p>
+</section>
+<!--主体内容-->
+<section class="publicMian ">
+    <div class="left">
+        <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
+        <nav>
+            <ul class="list">
+                <li id="active"><a href="userList.html">用户管理</a></li>
+                <li><a href="courseList.html">课程管理</a></li>
+                <li><a href="questionnaireList.html">问卷管理</a></li>
+                <li><a href="noticeList.html">公告管理</a></li>
+                <li><a href="evaluate.html">评优推优</a></li>
+                <li><a href="../login.html">退出系统</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="right">
+        <div class="location">
+            <strong>你现在所在的位置是:</strong>
+            <span>用户管理页面 >> 用户添加页面</span>
+        </div>
+        <div class="providerAdd" >
+            <form action="#">
+                <!--div的class 为error是验证错误，ok是验证成功-->
+                <div>
+                    <label>用户账号：</label>
+                    <input type="text" name="userId"/>
+                    <span>*请输入用户账号，且不能重复</span>
+                </div>
+                <div>
+                    <label>用户姓名：</label>
+                    <input type="text" name="userName"/>
+                    <span >*请输入用户姓名</span>
+                </div>
+                <div>
+                    <label>用户密码：</label>
+                    <input type="text" name="userpassword"/>
+                    <span>*请输入用户密码</span>
+
+                </div>
+                <div>
+                    <label>确认密码：</label>
+                    <input type="text" name="userRemi"/>
+                    <span>*请输入确认密码</span>
+                </div>
+                <div>
+                    <label>用户性别：</label>
+                    <input type="radio" name="userlei"/>男
+                    <input type="radio" name="userlei"/>女
+                    <span>*</span>
+                </div>
+                <div>
+                    <label>用户级别：</label>
+                    <input type="text" name="data"/>
+                    <span >*请输入院级或校级</span>
+                </div>
+
+                <div class="providerAddBtn">
+                    <!--<a href="#">保存</a>-->
+                    <!--<a href="userList.html">返回</a>-->
+                    <input type="submit" value="保存" onclick="history.back(-1)"/>
+                    <input type="button" value="返回" onclick="history.back(-1)"/>
+                </div>
+            </form>
+        </div>
+
+
+
+    </div>
+</section>
+<footer class="footer">
+</footer>
+<script src="../js/time.js"></script>
+<script type="text/javascript">
+    function add(id) {
+        document.getElementById('export').style.display='none';
+        document.getElementById('teacher').style.display='none';
+        document.getElementById('supervisor').style.display='none';
+        document.getElementById('leader').style.display='none';
+        document.getElementById(id).style.display='block';
+    }
+</script>
+
+</body>
+</html>

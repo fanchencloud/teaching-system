@@ -242,11 +242,18 @@ tr .firstTr:hover {
     padding: 20px;
     margin: 20px;
 }
-
-.providerAdd form {
-
+#export{
+    display: none;
 }
-
+#teacher{
+    display: none;
+}
+#supervisor{
+    display: none;
+}
+#leader{
+    display: none;
+}
 .providerAdd div {
     margin-top: 12px;
     margin-bottom: 12px;

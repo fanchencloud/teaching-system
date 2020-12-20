@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>高校教学督导系统</title>
+    <link rel="stylesheet" href="../css/public.css">
+    <link rel="stylesheet" href="../css/administrator.css" />
+    <link rel="stylesheet" href="../css/style1.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link href="../js/lib/bootstrap.css" rel="stylesheet">
+    <link href="../js/lib/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/project/userinfo.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <!--头部-->
+    <header class="publicHeader">
+        <h1>高校教学督导系统</h1>
+        <div class="publicHeaderR">
+            <p><span id="hours"></span><span>！</span><span style="color: #fff21b"> 管理员</span> , 欢迎你！</p>
+            <a href="../login.html">退出</a>
+        </div>
+    </header>
+    <!--时间-->
+    <section class="publicTime">
+        <span id="time"></span>
+        <p>温馨提示：为了能正常浏览，请使用高版本浏览器！（IE10+）</p>
+    </section>
+    <!--主体内容-->
+    <section class="publicMian ">
+        <div class="left">
+            <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
+            <nav>
+                <ul class="list">
+                    <li><a href="userList.html">用户管理</a></li>
+                    <li><a href="courseList.html">课程管理</a></li>
+                    <li><a href="questionnaireList.html">问卷管理</a></li>
+                    <li><a href="noticeList.html">公告管理</a></li>
+                    <li><a href="evaluate.html">评优推优</a></li>
+                    <li><a href="../login.html">退出系统</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="container">
+        <div id="inner-hd">
+            <div class="crumbs">
+                <i class="crumbs-arrow"></i>
+                <span style="text-decoration:none" class="crumbs-label">查看督导推优</span>
+            </div>
+        </div>
+
+            <div id="inner-bd">
+                <div class="button-group">
+                    <div class="button current save">
+                        <a href="evaluate.html"> <span class="button-label">查看督导推优</span></a>
+                    </div>
+                    <div class="button current save">
+                        <a href="evaTeacher.html"> <span class="button-label">查看教师推优</span></a>
+                    </div>
+                </div>
+            </div>
+                <table class="kv-table">
+                    <tbody>
+                        <tr>
+                            <td class="kv-label">一颗星</td>
+                            <td class="kv-content" colspan="6">
+                                <div class="textarea-wrap" style="width: 900px;">
+                                    <textarea></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="kv-label">两颗星</td>
+                            <td class="kv-content" colspan="6">
+                                <div class="textarea-wrap">
+                                    <textarea></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="kv-label">三颗星</td>
+                            <td class="kv-content" colspan="6">
+                                <div class="textarea-wrap">
+                                    <textarea></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="kv-label">四颗星</td>
+                            <td class="kv-content" colspan="6">
+                                <div class="textarea-wrap">
+                                    <textarea></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="kv-label">五颗星</td>
+                            <td class="kv-content" colspan="6">
+                                <div class="textarea-wrap">
+                                    <textarea></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="kv-label" colspan="1">综合评价</td>
+                            <td class="kv-content" colspan="6">
+                                <div class="textarea-wrap">
+                                    <textarea></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+
+            </div>
+    </section>
+    <footer class="footer">
+    </footer>
+
+    <script src="../js/jquery.js"></script>
+    <script src="../js/js.js"></script>
+    <script src="../js/time.js"></script>
+
+</body>
+
+</html>

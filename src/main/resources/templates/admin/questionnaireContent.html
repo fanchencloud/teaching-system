@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>高校教学督导系统</title>
+<!--        <link href="../js/lib/bootstrap.css" rel="stylesheet">-->
+<!--        <link href="../js/lib/bootstrap-datepicker.css" rel="stylesheet">-->
+        <link href="../css/base.css" rel="stylesheet">
+<!--        <link href="../css/project/userinfo.css" rel="stylesheet">-->
+        <link rel="stylesheet" href="../css/public.css"/>
+        <link rel="stylesheet" href="../css/style.css"/>
+        <link rel="stylesheet" href="../css/administrator.css">
+
+    </head>
+    <body>
+    <!--头部-->
+    <header class="publicHeader">
+        <h1>高校教学督导系统</h1>
+    
+        <div class="publicHeaderR">
+            <p><span id="hours"></span><span>！</span><span style="color: #fff21b"> 管理员</span> , 欢迎你！</p>
+            <a href="../login.html">退出</a>
+        </div>
+    </header>
+    <!--时间-->
+    <section class="publicTime">
+        <span id="time"></span>
+        <p>温馨提示：为了能正常浏览，请使用高版本浏览器！（IE10+）</p>
+    </section>
+<!--主体内容-->
+    <section class="publicMian ">
+        <div class="left">
+            <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
+            <nav>
+                <ul class="list">
+                    <li><a href="userList.html">用户管理</a></li>
+                    <li><a href="courseList.html">课程管理</a></li>
+                    <li id="active"><a href="questionnaireList.html">问卷管理</a></li>
+                    <li><a href="noticeList.html">公告管理</a></li>
+                    <li><a href="evaluate.html">评优推优</a></li>
+                    <li><a href="../login.html">退出系统</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="right">
+            <div class="location">
+                <strong>你现在所在的位置是:</strong>
+                <span>问卷管理页面 >> 问卷信息查看页面 >> 问卷详情页面</span>
+            </div>
+            <div class="container">
+                <div id="inner-bd">
+                    <div class="button-group" style="margin: 20px;">
+                        <div class="button current save">
+                            <a href="questionnaireView.html"> <span class="button-label" >返回</span></a>
+                        </div>
+                    </div>
+
+                    <table class="kv-table">
+                        <tbody>
+                        <tr>
+                            <td class="kv-label">教师编号</td>
+                            <td class="kv-content">T201821130200</td>
+                            <td class="kv-label">教师姓名</td>
+                            <td class="kv-content">依依</td>
+                            <td class="kv-label">学院</td>
+                            <td class="kv-content">
+                                信息与安全工程学院
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="kv-label">课堂编号</td>
+                            <td class="kv-content">C201821130200</td>
+                            <td class="kv-label">课堂名</td>
+                            <td class="kv-content">数据结构</td>
+                            <td class="kv-label">听课时间</td>
+                            <td class="kv-content" colspan="1">2020-11-23</td>
+                        </tr>
+                        <tr>
+                            <td class="kv-label">督导编号</td>
+                            <td class="kv-content">
+                                E100001
+                            </td>
+                            <td class="kv-label">督导姓名</td>
+                            <td class="kv-content">
+                                张三
+                            </td>
+                            <td class="kv-label"></td>
+                            <td class="kv-content">
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="kv-label">评价指标</td>
+                            <td class="kv-label" colspan="2">
+                                评价内容
+                            </td>
+                            <td class="kv-label" colspan="1">分值</td>
+                            <td class="kv-label" colspan="2" >
+                                得分
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="kv-label">教学态度</td>
+                            <td class="kv-label" colspan="2">
+                                遵守教学纪律，注重教书育人<br><br>
+                                严格课堂管理，言行举止得体<br><br>
+                                教学准备充分，课堂讲授认真
+                            </td>
+                            <td class="kv-label" colspan="1">15</td>
+                            <td class="kv-content" colspan="2" >
+                                <div class="textarea-wrap">
+                                    <textarea></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="kv-label">教学内容</td>
+                            <td class="kv-label" colspan="2">
+                                符合大纲要求，讲授观点正确<br><br>
+                                教学内容突出，重点难点突出<br><br>
+                                跟踪学科前言，注重知识拓展
+                            </td>
+                            <td class="kv-label" colspan="1">35</td>
+                            <td class="kv-content" colspan="2" >
+                                <div class="textarea-wrap">
+                                    <textarea></textarea>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="kv-label">教学技能</td>
+                            <td class="kv-label" colspan="2">
+                                教学媒体运用适当有效，板书条理清晰<br><br>
+                                教学内容娴熟，讲述深入浅出<br><br>
+                                注重教学互动，授课有激情<br><br>
+                                教学方式灵活多样，课堂调控自如
+                            </td>
+                            <td class="kv-label" colspan="1">35</td>
+                            <td class="kv-content" colspan="2" >
+                                <div class="textarea-wrap">
+                                    <textarea></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="kv-label">课堂总体效果</td>
+                            <td class="kv-label" colspan="2">
+                                激发学生学习兴趣，学生听课认真<br><br>
+                                启发学生思考，引导学生研究性学习<br><br>
+                                重视能力培养，达到预期的课堂教学目标
+                            </td>
+                            <td class="kv-label" colspan="1">15</td>
+                            <td class="kv-content" colspan="2" >
+                                <div class="textarea-wrap">
+                                    <textarea></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="kv-label">教学特色<br><br>（加分项）</td>
+                            <td class="kv-label" colspan="2">
+                    
+                            </td>
+                            <td class="kv-label" colspan="1">10</td>
+                            <td class="kv-content" colspan="2" >
+                                <div class="textarea-wrap">
+                                    <textarea></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="kv-label">小计</td>
+                            <td class="kv-label" colspan="2"></td>
+                            <td class="kv-label" colspan="1">110</td>
+                            <td class="kv-content" colspan="2" >
+                                <div class="textarea-wrap">
+                                    <textarea></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="kv-label" colspan="1">课堂教学过程<br><br>及讲授主要内<br><br>容</td>
+                            <td class="kv-content" colspan="6" >
+                                <div class="textarea-wrap">
+                                    <textarea></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="kv-label" colspan="1">教学保障情况</td>
+                            <td class="kv-content" colspan="6" >
+                                <div class="textarea-wrap">
+                                    <textarea></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="kv-label" colspan="1">学生学习情况</td>
+                            <td class="kv-content" colspan="6" >
+                                <div class="textarea-wrap">
+                                    <textarea></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="kv-label" colspan="1">意见与建议</td>
+                            <td class="kv-content" colspan="6" >
+                                <div class="textarea-wrap">
+                                    <textarea></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+
+
+                </div>
+        </div>
+        </div>
+    </section>
+
+
+    <footer class="footer">
+    </footer>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/time.js"></script>
+
+</body>
+</html>

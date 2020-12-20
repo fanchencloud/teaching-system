@@ -80,7 +80,7 @@ li{
     background: url("../img/time.png") 0 center no-repeat;
     padding-left: 26px;
 }
-.publicTime a{
+.publicTime p{
     float: right;
     margin-right: 50px;
     color: #626367;
