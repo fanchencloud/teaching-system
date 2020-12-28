@@ -18,11 +18,33 @@
         <result column="time" jdbcType="VARCHAR" property="time"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, teacher_id, capacity, `member`,course_name, place, college, content, start_time, end_time,
-    create_time, last_edit_time, `type`, `time`
+        id,
+        teacher_id,
+        capacity,
+        `member`,
+        course_name,
+        place,
+        college,
+        content,
+        start_time,
+        end_time,
+        create_time,
+        last_edit_time,
+        `type`,
+        `time`
     </sql>
     <sql id="General_Column_List">
-        id, teacher_id, capacity, course_name,`member` place, college, content, start_time, end_time,`type`, `time`
+        id,
+        teacher_id,
+        capacity,
+        course_name,
+        `member` place,
+        college,
+        content,
+        start_time,
+        end_time,
+        `type`,
+        `time`
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -41,11 +63,15 @@
         <include refid="Base_Column_List"/>
         from course
         <where>
-            <if test="courseId != null">and id = #{courseId}</if>
+            <if test="courseId != null">
+                and id = #{courseId}
+            </if>
             <if test="courseName != null">
                 and course_name like '%${courseName}%'
             </if>
-            <if test="college != null">and college = #{college}</if>
+            <if test="college != null">
+                and college = #{college}
+            </if>
         </where>
     </select>
     <select id="getSelectedCourse" resultType="cn.chen.teachingsystem.entity.Course">
@@ -55,15 +81,22 @@
         <where>
             <if test="userId != null">
                 and id in (
-                select course_id from elective where user_id = #{userId,jdbcType=INTEGER}
-                <if test="finish != null">and finish = #{finish,jdbcType=INTEGER}</if>
+                    select course_id
+                    from elective where user_id = #{userId,jdbcType=INTEGER}
+                <if test="finish != null">
+                    and finish = #{finish,jdbcType=INTEGER}
+                </if>
                 )
             </if>
             <if test="courseName != null">
                 and course_name like '%${courseName}%'
             </if>
-            <if test="college != null">and college = #{college,jdbcType=VARCHAR}</if>
-            <if test="courseId != null">and id = #{courseId,jdbcType=INTEGER}</if>
+            <if test="college != null">
+                and college = #{college,jdbcType=VARCHAR}
+            </if>
+            <if test="courseId != null">
+                and id = #{courseId,jdbcType=INTEGER}
+            </if>
             <if test="time != null">
                 and time like '%${time}%'
             </if>
@@ -74,7 +107,7 @@
         <include refid="General_Column_List"/>
         from course
         where teacher_id = #{teacherId,jdbcType=INTEGER}
-        and id in (select distinct(course_id) from elective where finish = 2);
+          and id in (select distinct(course_id) from elective where finish = 2);
     </select>
     <select id="selectCourseBeEvaluated" resultType="cn.chen.teachingsystem.entity.Course">
         select
@@ -87,6 +120,22 @@
         from course
         where teacher_id = #{teacherId};
     </select>
+    <select id="selfEvaluationList" resultType="cn.chen.teachingsystem.entity.Course">
+        select
+        <include refid="Base_Column_List"/>
+        from course
+        <where>
+            <if test="courseName != null">
+                and course_name like '%${courseName}%'
+            </if>
+            <if test="teacherId != null">
+                and teacher_id = #{teacherId}
+            </if>
+            <if test="courseId != null">
+                and id = #{courseId}
+            </if>
+        </where>
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from course
@@ -98,22 +147,22 @@
                             place, college, content,
                             start_time, end_time, create_time,
                             last_edit_time, `type`, `time`)
-        values (#{teacher_id,jdbcType=INTEGER}, #{capacity,jdbcType=INTEGER}, #{course_name,jdbcType=VARCHAR},
+        values (#{teacherId,jdbcType=INTEGER}, #{capacity,jdbcType=INTEGER}, #{courseName,jdbcType=VARCHAR},
                 #{place,jdbcType=VARCHAR}, #{college,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
-                #{start_time,jdbcType=TIMESTAMP}, #{end_time,jdbcType=TIMESTAMP}, #{create_time,jdbcType=TIMESTAMP},
-                #{last_edit_time,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR})
+                #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP},
+                #{lastEditTime,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.chen.teachingsystem.entity.Course"
             useGeneratedKeys="true">
         insert into course
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="teacher_id != null">
+            <if test="teacherId != null">
                 teacher_id,
             </if>
             <if test="capacity != null">
                 capacity,
             </if>
-            <if test="course_name != null">
+            <if test="courseName != null">
                 course_name,
             </if>
             <if test="place != null">
@@ -125,16 +174,16 @@
             <if test="content != null">
                 content,
             </if>
-            <if test="start_time != null">
+            <if test="startTime != null">
                 start_time,
             </if>
-            <if test="end_time != null">
+            <if test="endTime != null">
                 end_time,
             </if>
-            <if test="create_time != null">
+            <if test="createTime != null">
                 create_time,
             </if>
-            <if test="last_edit_time != null">
+            <if test="lastEditTime != null">
                 last_edit_time,
             </if>
             <if test="type != null">
@@ -145,14 +194,14 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="teacher_id != null">
-                #{teacher_id,jdbcType=INTEGER},
+            <if test="teacherId != null">
+                #{teacherId,jdbcType=INTEGER},
             </if>
             <if test="capacity != null">
                 #{capacity,jdbcType=INTEGER},
             </if>
-            <if test="course_name != null">
-                #{course_name,jdbcType=VARCHAR},
+            <if test="courseName != null">
+                #{courseName,jdbcType=VARCHAR},
             </if>
             <if test="place != null">
                 #{place,jdbcType=VARCHAR},
@@ -163,17 +212,17 @@
             <if test="content != null">
                 #{content,jdbcType=VARCHAR},
             </if>
-            <if test="start_time != null">
-                #{start_time,jdbcType=TIMESTAMP},
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="end_time != null">
-                #{end_time,jdbcType=TIMESTAMP},
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="create_time != null">
-                #{create_time,jdbcType=TIMESTAMP},
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="last_edit_time != null">
-                #{last_edit_time,jdbcType=TIMESTAMP},
+            <if test="lastEditTime != null">
+                #{lastEditTime,jdbcType=TIMESTAMP},
             </if>
             <if test="type != null">
                 #{type,jdbcType=VARCHAR},
@@ -186,14 +235,14 @@
     <update id="updateByPrimaryKeySelective" parameterType="cn.chen.teachingsystem.entity.Course">
         update course
         <set>
-            <if test="teacher_id != null">
-                teacher_id = #{teacher_id,jdbcType=INTEGER},
+            <if test="teacherId != null">
+                teacher_id = #{teacherId,jdbcType=INTEGER},
             </if>
             <if test="capacity != null">
                 capacity = #{capacity,jdbcType=INTEGER},
             </if>
-            <if test="course_name != null">
-                course_name = #{course_name,jdbcType=VARCHAR},
+            <if test="courseName != null">
+                course_name = #{courseName,jdbcType=VARCHAR},
             </if>
             <if test="place != null">
                 place = #{place,jdbcType=VARCHAR},
@@ -204,17 +253,17 @@
             <if test="content != null">
                 content = #{content,jdbcType=VARCHAR},
             </if>
-            <if test="start_time != null">
-                start_time = #{start_time,jdbcType=TIMESTAMP},
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="end_time != null">
-                end_time = #{end_time,jdbcType=TIMESTAMP},
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="create_time != null">
-                create_time = #{create_time,jdbcType=TIMESTAMP},
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="last_edit_time != null">
-                last_edit_time = #{last_edit_time,jdbcType=TIMESTAMP},
+            <if test="lastEditTime != null">
+                last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
             </if>
             <if test="type != null">
                 `type` = #{type,jdbcType=VARCHAR},
@@ -227,16 +276,16 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="cn.chen.teachingsystem.entity.Course">
         update course
-        set teacher_id     = #{teacher_id,jdbcType=INTEGER},
+        set teacher_id     = #{teacherId,jdbcType=INTEGER},
             capacity       = #{capacity,jdbcType=INTEGER},
-            course_name    = #{course_name,jdbcType=VARCHAR},
+            course_name    = #{courseName,jdbcType=VARCHAR},
             place          = #{place,jdbcType=VARCHAR},
             college        = #{college,jdbcType=VARCHAR},
             content        = #{content,jdbcType=VARCHAR},
-            start_time     = #{start_time,jdbcType=TIMESTAMP},
-            end_time       = #{end_time,jdbcType=TIMESTAMP},
-            create_time    = #{create_time,jdbcType=TIMESTAMP},
-            last_edit_time = #{last_edit_time,jdbcType=TIMESTAMP},
+            start_time     = #{startTime,jdbcType=TIMESTAMP},
+            end_time       = #{endTime,jdbcType=TIMESTAMP},
+            create_time    = #{createTime,jdbcType=TIMESTAMP},
+            last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
             `type`         = #{type,jdbcType=VARCHAR},
             `time`         = #{time,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
@@ -251,5 +300,4 @@
         set `member` = IF(`member` &lt; 1, 0, `member` - 1)
         where id = #{id,jdbcType=INTEGER}
     </update>
-
 </mapper>
