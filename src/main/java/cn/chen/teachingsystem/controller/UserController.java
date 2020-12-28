@@ -1,6 +1,5 @@
 package cn.chen.teachingsystem.controller;
 
-import cn.chen.teachingsystem.conf.ApplicationConfig;
 import cn.chen.teachingsystem.entity.User;
 import cn.chen.teachingsystem.model.JsonResponse;
 import cn.chen.teachingsystem.service.UserService;
@@ -14,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static cn.chen.teachingsystem.conf.ApplicationConfig.*;
+import static cn.chen.teachingsystem.conf.ApplicationConfig.APPLICATION_OK;
+import static cn.chen.teachingsystem.conf.ApplicationConfig.USER_PASSWORD_ERROR;
 
 /**
  * Created by handsome programmer.
@@ -113,7 +113,7 @@ public class UserController {
     @ResponseBody
     @ApiOperation("管理员重置用户密码")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户编号", required = true, dataType = "Integer")})
+            @ApiImplicitParam(name = "userId", value = "用户编号", required = true, dataType = "String", dataTypeClass = String.class)})
     public JsonResponse resetPasswordByAdmin(Integer userId) {
         if (userService.resetPassword(userId)) {
             return JsonResponse.ok();
@@ -132,9 +132,9 @@ public class UserController {
     @ResponseBody
     @ApiOperation("修改用户密码")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户编号", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "oldPassword", value = "用户旧密码", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "newPassword", value = "用户新密码", required = true, dataType = "String")
+            @ApiImplicitParam(name = "userId", value = "用户编号", required = true, dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "oldPassword", value = "用户旧密码", required = true, dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "newPassword", value = "用户新密码", required = true, dataType = "String", dataTypeClass = String.class)
     })
     public JsonResponse modifyPassword(Integer userId, String oldPassword, String newPassword) {
         int res = userService.modifyPassword(userId, oldPassword, newPassword);

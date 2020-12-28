@@ -26,6 +26,13 @@ public interface UserService {
     boolean login(String username, String password, int type);
 
     /**
+     * 退出登录
+     *
+     * @return 操作结果
+     */
+    boolean signOut();
+
+    /**
      * 获取用户的基本信息
      *
      * @param userId 用户id
