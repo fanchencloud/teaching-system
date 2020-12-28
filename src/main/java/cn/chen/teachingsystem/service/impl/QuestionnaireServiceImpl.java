@@ -8,6 +8,7 @@ import cn.chen.teachingsystem.mapper.ElectiveDao;
 import cn.chen.teachingsystem.mapper.QuestionnaireDao;
 import cn.chen.teachingsystem.mapper.SupervisionDao;
 import cn.chen.teachingsystem.service.QuestionnaireService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
@@ -28,19 +29,17 @@ import java.util.List;
  * @Description:
  */
 @Service
+@Slf4j
 public class QuestionnaireServiceImpl implements QuestionnaireService {
-    @Autowired
+
     private DataSourceTransactionManager dataSourceTransactionManager;
 
     private CourseDao courseDao;
 
-    @Autowired
     private QuestionnaireDao questionnaireDao;
 
-    @Autowired
     private ElectiveDao electiveDao;
 
-    @Autowired
     private SupervisionDao supervisionDao;
 
     @Override
@@ -54,7 +53,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean fillInTheQuestionnaire(Questionnaire questionnaire) {
         DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
         defaultTransactionDefinition.setName("updateMessage");
@@ -63,18 +62,30 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         // 1- 问卷表数据保存
         int insertSelective = questionnaireDao.insertSelective(questionnaire);
         if (insertSelective <= 0) {
+            log.error("{}", "问卷表保存失败！");
             throw new RuntimeException("问卷表保存失败！");
         }
         // 2- 选课表修改完成状态
+        // 2.1 - 查询选课情况
+        Elective temp = electiveDao.selectByCourseIdAndUserId(questionnaire.getCourseId(), questionnaire.getUserId());
+        if (temp == null) {
+            log.error("{}", "查询选课表出错！");
+            throw new RuntimeException("修改选课表数据失败！");
+        }
+        // 2.2 - 修改选课表
         Elective elective = new Elective();
+        elective.setId(temp.getId());
         elective.setUserId(questionnaire.getUserId());
         elective.setCourseId(questionnaire.getCourseId());
         elective.setFinish(2);
+
         if (electiveDao.updateByPrimaryKeySelective(elective) <= 0) {
+            log.error("{}", "修改选课表数据失败！");
             throw new RuntimeException("修改选课表数据失败！");
         }
         // 3- 督导表更改完成数量
         if (supervisionDao.increaseFinish(questionnaire.getUserId()) <= 0) {
+            log.error("{}", "修改督导表数据失败！");
             throw new RuntimeException("修改督导表数据失败！");
         }
         return true;
@@ -98,5 +109,25 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     @Autowired
     public void setCourseDao(CourseDao courseDao) {
         this.courseDao = courseDao;
+    }
+
+    @Autowired
+    public void setDataSourceTransactionManager(DataSourceTransactionManager dataSourceTransactionManager) {
+        this.dataSourceTransactionManager = dataSourceTransactionManager;
+    }
+
+    @Autowired
+    public void setQuestionnaireDao(QuestionnaireDao questionnaireDao) {
+        this.questionnaireDao = questionnaireDao;
+    }
+
+    @Autowired
+    public void setElectiveDao(ElectiveDao electiveDao) {
+        this.electiveDao = electiveDao;
+    }
+
+    @Autowired
+    public void setSupervisionDao(SupervisionDao supervisionDao) {
+        this.supervisionDao = supervisionDao;
     }
 }

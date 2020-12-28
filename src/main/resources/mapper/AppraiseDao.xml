@@ -46,9 +46,6 @@
         user.name as l_name
         from appraise
         left join user on appraise.leader_id = user.id
-        where appraise.id = 1
-        and appraise.teacher_id = 1
-        and user.name like '%%';
         <where>
             <if test="leaderName != null">
                 user.name like '%${leaderName}%'

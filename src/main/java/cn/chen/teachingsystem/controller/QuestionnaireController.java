@@ -53,10 +53,10 @@ public class QuestionnaireController {
     @ResponseBody
     @ApiOperation("获取问卷列表展示-管理员")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "课程编号", required = false, dataType = "Integer"),
-            @ApiImplicitParam(name = "courseName", value = "课程名", required = false, dataType = "String"),
-            @ApiImplicitParam(name = "teacherId", value = "教师工号", required = false, dataType = "Integer"),
-            @ApiImplicitParam(name = "teacherName", value = "教师姓名", required = false, dataType = "String")})
+            @ApiImplicitParam(name = "courseId", value = "课程编号", required = false, dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "courseName", value = "课程名", required = false, dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "teacherId", value = "教师工号", required = false, dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "teacherName", value = "教师姓名", required = false, dataType = "String", dataTypeClass = String.class)})
     public JsonResponse getQuestionnaireList(
             @RequestParam(value = "courseId", required = false) Integer courseId,
             @RequestParam(value = "courseName", required = false) String courseName,
@@ -82,6 +82,9 @@ public class QuestionnaireController {
     @PostMapping(value = "/fillEvalAdmin")
     @ResponseBody
     @ApiOperation("管理员填写评价")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseId", value = "课程编号", required = true, dataType = "Integer", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "appraise", value = "评价内容", required = true, dataType = "String", dataTypeClass = String.class)})
     public JsonResponse fillInTheEvaluationByAdmin(Integer courseId, String appraise) {
         Course course = new Course();
         course.setId(courseId);
@@ -105,9 +108,9 @@ public class QuestionnaireController {
     @ResponseBody
     @ApiOperation("获取用户id为 userId 的督导员可以填写问卷的课程列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "(督导)用户编号（必填）", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "courseId", value = "课程编号", required = false, dataType = "Integer"),
-            @ApiImplicitParam(name = "college", value = "课程所属学院", required = false, dataType = "String")
+            @ApiImplicitParam(name = "userId", value = "(督导)用户编号（必填）", required = true, dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "courseId", value = "课程编号", required = false, dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "college", value = "课程所属学院", required = false, dataType = "String", dataTypeClass = String.class)
     })
     public JsonResponse getQuestionnaireCourse(
             @RequestParam(value = "userId", required = false) Integer userId,
@@ -128,8 +131,8 @@ public class QuestionnaireController {
     @ResponseBody
     @ApiOperation("获取填写一份问卷的时候需要显示的信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "(督导)用户编号（必填）", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "courseId", value = "课程编号（必填）", required = true, dataType = "Integer")
+            @ApiImplicitParam(name = "userId", value = "(督导)用户编号（必填）", required = true, dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "courseId", value = "课程编号（必填）", required = true, dataType = "String", dataTypeClass = String.class)
     })
     public JsonResponse fillInTheQuestionnaire(Integer userId, Integer courseId) {
         // 1- 查询督导信息
