@@ -1,6 +1,8 @@
 package cn.chen.teachingsystem.controller;
 
+import cn.chen.teachingsystem.model.JsonResponse;
 import cn.chen.teachingsystem.service.UserService;
+import cn.chen.teachingsystem.util.RequestContextHolderUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -9,7 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by handsome programmer.
@@ -67,6 +74,20 @@ public class IndexController {
         }
         view.setViewName(result);
         return view;
+    }
+
+    /**
+     * 获取已登录用户的信息
+     *
+     * @return
+     */
+    @ApiOperation("获取已登录用户的信息")
+    @GetMapping(value = "/getUserInformation")
+    @ResponseBody
+    public JsonResponse getUserInformation(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object user = session.getAttribute("user");
+        return JsonResponse.ok(user);
     }
 
     /**
