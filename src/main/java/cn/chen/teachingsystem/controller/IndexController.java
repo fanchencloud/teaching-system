@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by handsome programmer.
@@ -45,9 +46,11 @@ public class IndexController {
      */
     @ApiOperation("处理登录请求")
     @PostMapping(value = "/login")
-    public String login(String username, String password, int usertype) {
+    public ModelAndView login(String username, String password, int usertype) {
+        ModelAndView view = new ModelAndView();
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
-            return "error/error";
+            view.setViewName("error/error");
+            return view;
         }
         String result;
         if (userService.login(username, password, usertype)) {
@@ -60,9 +63,24 @@ public class IndexController {
             };
         } else {
             result = "login";
+            view.addObject("errorMsg", "登录失败！用户名或密码错误！");
         }
-        return result;
+        view.setViewName(result);
+        return view;
     }
+
+    /**
+     * 退出登录
+     *
+     * @return 返回登录页面
+     */
+    @ApiOperation("退出登录")
+    @GetMapping(value = "/signOut")
+    public String signOut() {
+        userService.signOut();
+        return "login";
+    }
+
 
     /**
      * 请求跳转到首页

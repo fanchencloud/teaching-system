@@ -34,4 +34,17 @@ public class ApplicationConfig {
      * 评价教师
      */
     public static final int APPRAISE_TYPE_TEACHER = 2;
+
+    /**
+     * 教师自评
+     */
+    public static final int APPRAISE_TYPE_TEACHER_SELF = 3;
+    /**
+     * 教师评价总结
+     */
+    public static final int APPRAISE_TYPE_TEACHER_SUMMARY = 4;
+    /**
+     * 教师评价总结
+     */
+    public static final int APPRAISE_TYPE_SUPERVISE_SUMMARY = 5;
 }

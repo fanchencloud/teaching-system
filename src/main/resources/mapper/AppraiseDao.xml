@@ -8,6 +8,9 @@
         <result column="content" jdbcType="VARCHAR" property="content"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="last_edit_time" jdbcType="TIMESTAMP" property="lastEditTime"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="course_id" jdbcType="INTEGER" property="courseId"/>
+        <result column="level" jdbcType="VARCHAR" property="level"/>
     </resultMap>
 
     <resultMap id="AppraiseRevealList" type="cn.chen.teachingsystem.model.AppraiseModel">
@@ -18,6 +21,9 @@
             <result column="content" jdbcType="VARCHAR" property="content"/>
             <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
             <result column="last_edit_time" jdbcType="TIMESTAMP" property="lastEditTime"/>
+            <result column="type" jdbcType="INTEGER" property="type"/>
+            <result column="course_id" jdbcType="INTEGER" property="courseId"/>
+            <result column="level" jdbcType="VARCHAR" property="level"/>
         </association>
         <association property="user" javaType="cn.chen.teachingsystem.entity.User">
             <id column="u_id" jdbcType="INTEGER" property="id"/>
@@ -29,7 +35,15 @@
         </association>
     </resultMap>
     <sql id="Base_Column_List">
-        id, leader_id, teacher_id, content, create_time, last_edit_time
+        id,
+        leader_id,
+        teacher_id,
+        content,
+        create_time,
+        last_edit_time,
+        type,
+        course_id,
+        level
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -39,19 +53,23 @@
     </select>
     <select id="selectByCondition" resultMap="AppraiseRevealList">
         select appraise.id,
-        leader_id,
-        teacher_id,
-        content,
-        user.id as l_id,
-        user.name as l_name
+               leader_id,
+               teacher_id,
+               content,
+               user.id   as l_id,
+               user.name as l_name
         from appraise
-        left join user on appraise.leader_id = user.id
+                     left join user on appraise.leader_id = user.id
         <where>
             <if test="leaderName != null">
                 user.name like '%${leaderName}%'
             </if>
-            <if test="id != null">and appraise.id = #{id}</if>
-            <if test="userId != null">and appraise.teacher_id = #{userId}</if>
+            <if test="id != null">
+                and appraise.id = #{id}
+            </if>
+            <if test="userId != null">
+                and appraise.teacher_id = #{userId}
+            </if>
         </where>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -76,12 +94,6 @@
             <if test="teacherId != null">
                 teacher_id,
             </if>
-            <if test="courseId != null">
-                course_id,
-            </if>
-            <if test="type != null">
-                type,
-            </if>
             <if test="content != null">
                 content,
             </if>
@@ -91,6 +103,15 @@
             <if test="lastEditTime != null">
                 last_edit_time,
             </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="courseId != null">
+                course_id,
+            </if>
+            <if test="level != null and level != ''">
+                level,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="leaderId != null">
@@ -98,12 +119,6 @@
             </if>
             <if test="teacherId != null">
                 #{teacherId,jdbcType=INTEGER},
-            </if>
-            <if test="courseId != null">
-                #{courseId,jdbcType=INTEGER},
-            </if>
-            <if test="type != null">
-                #{type,jdbcType=INTEGER},
             </if>
             <if test="content != null">
                 #{content,jdbcType=VARCHAR},
@@ -113,6 +128,15 @@
             </if>
             <if test="lastEditTime != null">
                 #{lastEditTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="courseId != null">
+                #{courseId,jdbcType=INTEGER},
+            </if>
+            <if test="level != null and level != ''">
+                #{level,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -134,6 +158,15 @@
             <if test="lastEditTime != null">
                 last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
             </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="courseId != null">
+                course_id = #{courseId,jdbcType=INTEGER},
+            </if>
+            <if test="level != null and level != ''">
+                level = #{level,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -143,7 +176,44 @@
             teacher_id     = #{teacherId,jdbcType=INTEGER},
             content        = #{content,jdbcType=VARCHAR},
             create_time    = #{createTime,jdbcType=TIMESTAMP},
-            last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP}
+            last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+            type           = #{type,jdbcType=INTEGER},
+            course_id      = #{courseId,jdbcType=INTEGER},
+            level          = #{level,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
+
+    <select id="summaryEvaluationOfTeacher" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from appraise
+        where course_id = #{courseId,jdbcType=INTEGER}
+          and teacher_id = #{teacherId,jdbcType=INTEGER}
+          and type = 4;
+    </select>
+
+    <select id="selectByAdminIdAndSuperviseId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from appraise
+        where leader_id = #{adminId,jdbcType=INTEGER}
+          and teacher_id = #{superviseId,jdbcType=INTEGER}
+          and type = 5;
+    </select>
+
+    <select id="getAppraiseSupervisorEvaluationSummary" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from appraise
+        where teacher_id = #{superviseId,jdbcType=INTEGER}
+          and type = 5;
+    </select>
+
+    <select id="getAppraiseTeacherEvaluationSummary" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from appraise
+        where teacher_id = #{teacherId,jdbcType=INTEGER}
+          and type = 4;
+    </select>
 </mapper>

@@ -11,10 +11,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -82,9 +79,74 @@ public class TeacherController {
         return JsonResponse.ok(map);
     }
 
+    /**
+     * 教师自评页面获取自己开的课程列表
+     *
+     * @param teacherId  教师id
+     * @param courseId   课程编号
+     * @param courseName 课程名
+     * @return 课程列表
+     */
+    @GetMapping(value = "/selfEvaluationList")
+    @ResponseBody
+    @ApiOperation("教师自评页面获取自己开的课程列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "teacherId", value = "教师编号（id）", required = true, dataType = "Integer", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "courseId", value = "课程编号", required = false, dataType = "Integer", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "courseName", value = "课程名", required = false, dataType = "String", dataTypeClass = String.class)})
+    public JsonResponse selfEvaluationList(
+            @RequestParam(value = "teacherId") Integer teacherId,
+            @RequestParam(value = "courseId", required = false) Integer courseId,
+            @RequestParam(value = "courseName", required = false) String courseName) {
+        List<Course> courseList = teacherService.selfEvaluationList(teacherId, courseId, courseName);
+        return JsonResponse.ok(courseList);
+    }
 
+    /**
+     * 教师自评页面获取自己开的课程信息
+     *
+     * @param teacherId 教师id
+     * @param courseId  课程编号
+     * @return 课程信息
+     */
+    @GetMapping(value = "/selfEvaluationPage")
+    @ResponseBody
+    @ApiOperation("教师自评页面获取自己开的课程列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "teacherId", value = "教师编号（id）", required = true, dataType = "Integer", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "courseId", value = "课程编号", required = false, dataType = "Integer", dataTypeClass = Integer.class)})
+    public JsonResponse selfEvaluationPage(
+            @RequestParam(value = "teacherId") Integer teacherId,
+            @RequestParam(value = "courseId", required = false) Integer courseId) {
+        Map<String, Object> res = teacherService.selfEvaluationPage(teacherId, courseId);
+        return JsonResponse.ok(res);
+    }
 
-
+    /**
+     * 教师自评页面获取自己开的课程列表
+     *
+     * @param teacherId 教师id
+     * @param courseId  课程编号
+     * @param content   评价内容
+     * @return 评价结果
+     */
+    @PostMapping(value = "/selfEvaluation")
+    @ResponseBody
+    @ApiOperation("教师自评信息提交")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "teacherId", value = "教师编号（id）", required = true, dataType = "Integer", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "courseId", value = "课程编号", required = false, dataType = "Integer", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "content", value = "评价内容", required = false, dataType = "String", dataTypeClass = String.class)})
+    public JsonResponse selfEvaluation(
+            @RequestParam(value = "teacherId") Integer teacherId,
+            @RequestParam(value = "courseId") Integer courseId,
+            @RequestParam(value = "content") String content) {
+        if (teacherService.selfEvaluation(teacherId, courseId, content)) {
+            return JsonResponse.ok();
+        } else {
+            return JsonResponse.errorMsg("自评失败！");
+        }
+    }
 
     @Autowired
     public void setCourseService(CourseService courseService) {

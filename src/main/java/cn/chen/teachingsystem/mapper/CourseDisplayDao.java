@@ -2,6 +2,7 @@ package cn.chen.teachingsystem.mapper;
 
 import cn.chen.teachingsystem.model.CourseDisplay;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,5 +28,9 @@ public interface CourseDisplayDao {
      * @param college    课程所属学院
      * @return 课程列表
      */
-    List<CourseDisplay> getCourseList(Integer courseId, String courseName, String courseTime, String courseType, String college);
+    List<CourseDisplay> getCourseList(@Param("courseId") Integer courseId,
+                                      @Param("courseName") String courseName,
+                                      @Param("courseTime") String courseTime,
+                                      @Param("courseType") String courseType,
+                                      @Param("college") String college);
 }

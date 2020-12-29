@@ -1,6 +1,7 @@
 package cn.chen.teachingsystem.service.impl;
 
 import cn.chen.teachingsystem.conf.ApplicationConfig;
+import cn.chen.teachingsystem.entity.Appraise;
 import cn.chen.teachingsystem.entity.Course;
 import cn.chen.teachingsystem.entity.Questionnaire;
 import cn.chen.teachingsystem.entity.User;
@@ -163,11 +164,12 @@ public class LeaderServiceImpl implements LeaderService {
      * @param superviseId 督导的用户id
      * @param leaderId    领导的用户id
      * @param content     评价内容
+     * @param level       评优等级
      * @return 评价结果
      */
     @Override
-    public boolean evaluationSupervision(Integer superviseId, Integer leaderId, String content) {
-        return appraiseService.evaluation(superviseId, leaderId, content, ApplicationConfig.APPRAISE_TYPE_SUPERVISE);
+    public boolean evaluationSupervision(Integer superviseId, Integer leaderId, String content, String level) {
+        return appraiseService.evaluation(superviseId, leaderId, content, ApplicationConfig.APPRAISE_TYPE_SUPERVISE, level);
     }
 
     @Override
@@ -216,6 +218,42 @@ public class LeaderServiceImpl implements LeaderService {
     @Override
     public boolean evaluationTeacher(Integer teacherId, Integer leaderId, String content) {
         return appraiseService.evaluation(teacherId, leaderId, content, ApplicationConfig.APPRAISE_TYPE_TEACHER);
+    }
+
+    @Override
+    public Object viewSupervisorEvaluation(Integer superviseId) {
+        Map<String, Object> map = new HashMap<>(3);
+        // 评价信息
+        Appraise appraise = appraiseService.getAppraiseSupervisorEvaluationSummary(superviseId);
+        map.put("appraise", appraise);
+        // 督导信息
+        User supervise = userService.getUserInformation(superviseId);
+        map.put("supervise", supervise);
+        // 管理员信息
+        User admin = userService.getUserInformation(appraise.getLeaderId());
+        map.put("admin", admin);
+        return map;
+    }
+
+    /**
+     * 查看教师评估总结
+     *
+     * @param teacherId 教师编号
+     * @return 评价总结
+     */
+    @Override
+    public Object viewTeacherEvaluationSummary(Integer teacherId) {
+        Map<String, Object> map = new HashMap<>(3);
+        // 评价信息
+        Appraise appraise = appraiseService.getAppraiseTeacherEvaluationSummary(teacherId);
+        map.put("appraise", appraise);
+        // 教师信息
+        User teacher = userService.getUserInformation(teacherId);
+        map.put("teacher", teacher);
+        // 管理员信息
+        User admin = userService.getUserInformation(appraise.getLeaderId());
+        map.put("admin", admin);
+        return map;
     }
 
     @Autowired

@@ -52,14 +52,45 @@ public class LeaderController {
     @ResponseBody
     @ApiOperation("查询督导任务进度")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "(督导)用户编号", required = false, dataType = "Integer"),
-            @ApiImplicitParam(name = "username", value = "(督导)用户姓名", required = false, dataType = "String")
-    })
+            @ApiImplicitParam(name = "userId", value = "(督导)用户编号", required = false, dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "username", value = "(督导)用户姓名", required = false, dataType = "String", dataTypeClass = String.class)})
     public JsonResponse getSuperviseTaskProgress(
             @RequestParam(value = "userId", required = false) Integer userId,
             @RequestParam(value = "username", required = false) String username) {
         List<SupervisionModel> superviseTaskProgress = supervisionService.getSuperviseTaskProgress(userId, username);
         return JsonResponse.ok(superviseTaskProgress);
+    }
+
+    /**
+     * 查看督导评价总结
+     *
+     * @param superviseId 督导编号
+     * @return 评价总结
+     */
+    @GetMapping(value = "/viewSupervisorEvaluation")
+    @ResponseBody
+    @ApiOperation("查看督导评价总结")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "superviseId", value = "督导编号", required = true, dataType = "Integer", dataTypeClass = Integer.class)})
+    public JsonResponse viewSupervisorEvaluation(Integer superviseId) {
+        Object res = leaderService.viewSupervisorEvaluation(superviseId);
+        return JsonResponse.ok(res);
+    }
+
+    /**
+     * 查看教师评估总结
+     *
+     * @param teacherId 教师编号
+     * @return 评价总结
+     */
+    @GetMapping(value = "/viewTeacherEvaluationSummary")
+    @ResponseBody
+    @ApiOperation("查看教师评估总结")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "teacherId", value = "教师编号", required = true, dataType = "Integer", dataTypeClass = Integer.class)})
+    public JsonResponse viewTeacherEvaluationSummary(Integer teacherId) {
+        Object res = leaderService.viewTeacherEvaluationSummary(teacherId);
+        return JsonResponse.ok(res);
     }
 
     /**
@@ -137,71 +168,8 @@ public class LeaderController {
         return JsonResponse.ok(res);
     }
 
-    /**
-     * 查询 评价督导 页面的督导列表
-     *
-     * @param userId   督导编号
-     * @param userName 督导名字
-     * @return 督导列表
-     */
-    @GetMapping(value = "/getSupervisorList")
-    @ResponseBody
-    @ApiOperation("查询 评价督导 页面的督导列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "督导用户编号", required = false, dataType = "Integer", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "userName", value = "督导用户姓名", required = false, dataType = "String", dataTypeClass = String.class)})
-    public JsonResponse getSupervisorList(
-            @RequestParam(value = "userId", required = false) Integer userId,
-            @RequestParam(value = "userName", required = false) String userName) {
-        List<SupervisionModel> res = leaderService.getSupervisorList(userId, userName);
-        return JsonResponse.ok(res);
-    }
 
-    /**
-     * 获取评价某一位督导页面的信息
-     *
-     * @param superviseId 督导的用户id
-     * @param leaderId    领导的用户id
-     * @return 信息
-     */
-    @GetMapping(value = "/evaluationSupervision")
-    @ResponseBody
-    @ApiOperation("获取评价某一位督导页面的信息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "superviseId", value = "督导的用户id", required = true, dataType = "Integer", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "leaderId", value = "领导的用户id", required = true, dataType = "Integer", dataTypeClass = Integer.class)})
-    public JsonResponse evaluationSupervision(
-            @RequestParam(value = "superviseId") Integer superviseId,
-            @RequestParam(value = "leaderId") Integer leaderId) {
-        Object res = leaderService.evaluationSupervision(superviseId, leaderId);
-        return JsonResponse.ok(res);
-    }
 
-    /**
-     * 领导评价一位督导
-     *
-     * @param superviseId 督导的用户id
-     * @param leaderId    领导的用户id
-     * @param content     评价内容
-     * @return 评价结果
-     */
-    @PostMapping(value = "/evaluationSupervision")
-    @ResponseBody
-    @ApiOperation("领导评价一位督导")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "superviseId", value = "督导的用户id", required = true, dataType = "Integer", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "leaderId", value = "领导的用户id", required = true, dataType = "Integer", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "content", value = "评价内容", required = true, dataType = "String", dataTypeClass = String.class)})
-    public JsonResponse evaluationSupervision(
-            @RequestParam(value = "superviseId") Integer superviseId,
-            @RequestParam(value = "leaderId") Integer leaderId,
-            @RequestParam(value = "content") String content) {
-        if (leaderService.evaluationSupervision(superviseId, leaderId, content)) {
-            return JsonResponse.ok();
-        } else {
-            return JsonResponse.errorMsg("评价失败！");
-        }
-    }
     /**/
 
     /**

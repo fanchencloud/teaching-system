@@ -2,6 +2,7 @@ package cn.chen.teachingsystem.mapper;
 
 import cn.chen.teachingsystem.entity.Announcement;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,5 +20,5 @@ public interface AnnouncementDao {
 
     int updateByPrimaryKey(Announcement record);
 
-    List<Announcement> selectByCondition(Integer id, String title);
+    List<Announcement> selectByCondition(@Param("id") Integer id, @Param("title") String title);
 }

@@ -14,10 +14,28 @@
         <result column="total" jdbcType="INTEGER" property="total"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="last_edit_time" jdbcType="TIMESTAMP" property="lastEditTime"/>
+        <result column="teaching_process" jdbcType="VARCHAR" property="teachingProcess"/>
+        <result column="teaching_guarantee_situation" jdbcType="VARCHAR" property="teachingGuaranteeSituation"/>
+        <result column="student_learning" jdbcType="VARCHAR" property="studentLearning"/>
+        <result column="comments_and_suggestions" jdbcType="VARCHAR" property="commentsAndSuggestions"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, user_id, teacher_id, course_id, attitude, content, skill, effect, feature, total,
-    create_time, last_edit_time
+        id,
+        user_id,
+        teacher_id,
+        course_id,
+        attitude,
+        content,
+        skill,
+        effect,
+        feature,
+        total,
+        create_time,
+        last_edit_time,
+        teaching_process,
+        teaching_guarantee_situation,
+        student_learning,
+        comments_and_suggestions
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -43,14 +61,15 @@
     </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.chen.teachingsystem.entity.Questionnaire"
             useGeneratedKeys="true">
-        insert into questionnaire (user_id, teacher_id, course_id,
-                                   attitude, content, skill,
-                                   effect, feature, total,
-                                   create_time, last_edit_time)
+        insert into questionnaire (user_id, teacher_id, course_id, attitude, content, skill, effect, feature, total,
+                                   create_time, last_edit_time, teaching_process, teaching_guarantee_situation,
+                                   student_learning, comments_and_suggestions)
         values (#{userId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER},
                 #{attitude,jdbcType=INTEGER}, #{content,jdbcType=INTEGER}, #{skill,jdbcType=INTEGER},
                 #{effect,jdbcType=INTEGER}, #{feature,jdbcType=INTEGER}, #{total,jdbcType=INTEGER},
-                #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP})
+                #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP},
+                #{teachingProcess,jdbcType=VARCHAR}, #{teachingGuaranteeSituation,jdbcType=VARCHAR},
+                #{studentLearning,jdbcType=VARCHAR}, #{commentsAndSuggestions,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id"
             parameterType="cn.chen.teachingsystem.entity.Questionnaire" useGeneratedKeys="true">
@@ -89,6 +108,18 @@
             <if test="lastEditTime != null">
                 last_edit_time,
             </if>
+            <if test="teachingProcess != null">
+                teaching_process,
+            </if>
+            <if test="teachingGuaranteeSituation != null and teachingGuaranteeSituation != ''">
+                teaching_guarantee_situation,
+            </if>
+            <if test="studentLearning != null and studentLearning != ''">
+                student_learning,
+            </if>
+            <if test="commentsAndSuggestions != null and commentsAndSuggestions != ''">
+                comments_and_suggestions,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userId != null">
@@ -123,6 +154,18 @@
             </if>
             <if test="lastEditTime != null">
                 #{lastEditTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="teachingProcess != null">
+                #{teachingProcess,jdbcType=VARCHAR},
+            </if>
+            <if test="teachingGuaranteeSituation != null and teachingGuaranteeSituation != ''">
+                #{teachingGuaranteeSituation,jdbcType=VARCHAR},
+            </if>
+            <if test="studentLearning != null and studentLearning != ''">
+                #{studentLearning,jdbcType=VARCHAR},
+            </if>
+            <if test="commentsAndSuggestions != null and commentsAndSuggestions != ''">
+                #{commentsAndSuggestions,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>

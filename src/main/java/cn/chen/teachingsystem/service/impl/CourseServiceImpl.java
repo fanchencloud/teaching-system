@@ -167,6 +167,11 @@ public class CourseServiceImpl implements CourseService {
         return courseDao.getNumberOfCourse(teacherId);
     }
 
+    @Override
+    public List<Course> selfEvaluationList(Integer teacherId, Integer courseId, String courseName) {
+        return courseDao.selfEvaluationList(teacherId, courseId, courseName);
+    }
+
     @Autowired
     public void setCourseDao(CourseDao courseDao) {
         this.courseDao = courseDao;

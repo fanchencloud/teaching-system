@@ -1,20 +1,16 @@
 package cn.chen.teachingsystem.controller;
 
 import cn.chen.teachingsystem.entity.Course;
-import cn.chen.teachingsystem.entity.User;
 import cn.chen.teachingsystem.model.CourseDisplay;
 import cn.chen.teachingsystem.model.JsonResponse;
 import cn.chen.teachingsystem.service.CourseService;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.spring.web.json.Json;
 
 import java.util.List;
 
@@ -136,11 +132,11 @@ public class CourseController {
     @ResponseBody
     @ApiOperation("通过课程编号、课程名、课程上课时间、课程类型、所属学院等条件查询督导选课所需要的课程列表(督导使用)")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "课程编号", required = false, dataType = "Integer"),
-            @ApiImplicitParam(name = "courseName", value = "课程名", required = false, dataType = "String"),
-            @ApiImplicitParam(name = "courseTime", value = "课程上课时间", required = false, dataType = "String"),
-            @ApiImplicitParam(name = "courseType", value = "课程类型", required = false, dataType = "String"),
-            @ApiImplicitParam(name = "college", value = "课程所属学院", required = false, dataType = "String")
+            @ApiImplicitParam(name = "courseId", value = "课程编号", required = false, dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "courseName", value = "课程名", required = false, dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "courseTime", value = "课程上课时间", required = false, dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "courseType", value = "课程类型", required = false, dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "college", value = "课程所属学院", required = false, dataType = "String", dataTypeClass = String.class)
     })
     public JsonResponse getCourseList(
             @RequestParam(value = "courseId", required = false) Integer courseId,
@@ -163,8 +159,8 @@ public class CourseController {
     @ResponseBody
     @ApiOperation("选择课程")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "课程编号（必填）", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "userId", value = "选课用户id（必填）", required = true, dataType = "Integer")
+            @ApiImplicitParam(name = "courseId", value = "课程编号（必填）", required = true, dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "userId", value = "选课用户id（必填）", required = true, dataType = "String", dataTypeClass = String.class)
     })
     public JsonResponse electiveCourse(Integer courseId, Integer userId) {
         if (courseService.electiveCourse(courseId, userId)) {
@@ -186,9 +182,9 @@ public class CourseController {
     @ResponseBody
     @ApiOperation("已选课程")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "(督导)用户编号（必填）", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "courseName", value = "课程名", required = false, dataType = "String"),
-            @ApiImplicitParam(name = "time", value = "上课时间", required = false, dataType = "String")
+            @ApiImplicitParam(name = "userId", value = "(督导)用户编号（必填）", required = true, dataType = "Integer", dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "courseName", value = "课程名", required = false, dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "time", value = "上课时间", required = false, dataType = "String", dataTypeClass = String.class)
     })
     public JsonResponse getListeningCourse(@RequestParam(value = "userId") Integer userId,
                                            @RequestParam(value = "courseName", required = false) String courseName,
@@ -208,8 +204,8 @@ public class CourseController {
     @ResponseBody
     @ApiOperation("督导对已选课程进行签到")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "(督导)用户编号（必填）", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "courseId", value = "课程编号（必填）", required = true, dataType = "Integer")
+            @ApiImplicitParam(name = "userId", value = "(督导)用户编号（必填）", required = true, dataType = "String", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "courseId", value = "课程编号（必填）", required = true, dataType = "String", dataTypeClass = String.class)
     })
     public JsonResponse signIn(Integer userId, Integer courseId) {
         if (courseService.signIn(userId, courseId)) {

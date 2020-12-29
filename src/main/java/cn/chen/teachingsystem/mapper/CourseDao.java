@@ -16,6 +16,12 @@ public interface CourseDao {
 
     Course selectByPrimaryKey(Integer id);
 
+    /**
+     * 更新课程信息
+     *
+     * @param record 课程信息
+     * @return 更新结果
+     */
     int updateByPrimaryKeySelective(Course record);
 
     int updateByPrimaryKey(Course record);
@@ -27,7 +33,15 @@ public interface CourseDao {
      */
     List<Course> selectAll();
 
-    List<Course> selectByCondition(Integer courseId, String courseName, String college);
+    /**
+     * 按条件查询
+     *
+     * @param courseId
+     * @param courseName
+     * @param college
+     * @return
+     */
+    List<Course> selectByCondition(@Param("courseId") Integer courseId, @Param("courseName") String courseName, @Param("college") String college);
 
     /**
      * 增加课程编号为 id 的课程的选课人数
@@ -77,4 +91,6 @@ public interface CourseDao {
      * @return 开设课程数量
      */
     Integer getNumberOfCourse(Integer teacherId);
+
+    List<Course> selfEvaluationList(@Param("teacherId") Integer teacherId, @Param("courseId") Integer courseId, @Param("courseName") String courseName);
 }

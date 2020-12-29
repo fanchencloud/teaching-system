@@ -17,12 +17,31 @@
         <result column="phone" jdbcType="VARCHAR" property="phone"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, username, `password`, `name`, user_type, `level`, sex, create_time, last_edit_time,
-    birthday, address, age, phone
+        id,
+        username,
+        `name`,
+        user_type,
+        `level`,
+        sex,
+        create_time,
+        last_edit_time,
+        birthday,
+        address,
+        age,
+        phone
     </sql>
 
     <sql id="general_Column_List">
-        id, username, `name`, user_type, `level`, sex,  birthday, address, age, phone
+        id,
+        username,
+        `name`,
+        user_type,
+        `level`,
+        sex,
+        birthday,
+        address,
+        age,
+        phone
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -41,7 +60,7 @@
         <include refid="Base_Column_List"/>
         from user
         where username = #{username,jdbcType=VARCHAR}
-        and password = #{password,jdbcType=VARCHAR}
+          and password = #{password,jdbcType=VARCHAR}
     </select>
     <select id="selectByIdOrUsername" resultType="cn.chen.teachingsystem.entity.User">
         select
@@ -51,7 +70,9 @@
             <if test="username != null">
                 username like '%${username}%'
             </if>
-            <if test="userId!=null">and id = #{userId}</if>
+            <if test="userId != null">
+                and id = #{userId}
+            </if>
         </where>
     </select>
     <select id="selectByIdOrName" resultType="cn.chen.teachingsystem.entity.User">
@@ -62,7 +83,9 @@
             <if test="name != null">
                 name like '%${name}%'
             </if>
-            <if test="userId != null">and id = #{userId}</if>
+            <if test="userId != null">
+                and id = #{userId}
+            </if>
         </where>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -95,7 +118,7 @@
             <if test="name != null">
                 `name`,
             </if>
-            <if test="user_type != null">
+            <if test="userType != null">
                 user_type,
             </if>
             <if test="level != null">
@@ -104,10 +127,10 @@
             <if test="sex != null">
                 sex,
             </if>
-            <if test="create_time != null">
+            <if test="createTime != null">
                 create_time,
             </if>
-            <if test="last_edit_time != null">
+            <if test="lastEditTime != null">
                 last_edit_time,
             </if>
             <if test="birthday != null">
@@ -133,8 +156,8 @@
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
             </if>
-            <if test="user_type != null">
-                #{user_type,jdbcType=INTEGER},
+            <if test="userType != null">
+                #{userType,jdbcType=INTEGER},
             </if>
             <if test="level != null">
                 #{level,jdbcType=INTEGER},
@@ -142,11 +165,11 @@
             <if test="sex != null">
                 #{sex,jdbcType=VARCHAR},
             </if>
-            <if test="create_time != null">
-                #{create_time,jdbcType=TIMESTAMP},
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="last_edit_time != null">
-                #{last_edit_time,jdbcType=TIMESTAMP},
+            <if test="lastEditTime != null">
+                #{lastEditTime,jdbcType=TIMESTAMP},
             </if>
             <if test="birthday != null">
                 #{birthday,jdbcType=VARCHAR},
@@ -207,22 +230,42 @@
     <update id="updateByPrimaryKey" parameterType="cn.chen.teachingsystem.entity.User">
         update user
         <trim prefix="set" suffixOverrides=",">
-            <if test="user.name!=null and user.name!=''">`username`=#{user.username,jdbcType=VARCHAR},</if>
-            <if test="user.password!=null and user.password!=''">`password`=#{user.password,jdbcType=VARCHAR},</if>
-            <if test="user.name!=null and user.name!=''">`name`=#{user.name,jdbcType=VARCHAR},</if>
-            <if test="user.userType!=null and user.userType!=''">`user_type`=#{user.userType,jdbcType=INTEGER},</if>
-            <if test="user.level!=null and user.level!=''">`level`=#{user.level,jdbcType=INTEGER},</if>
-            <if test="user.sex!=null and user.sex!=''">`sex`=#{user.sex,jdbcType=VARCHAR},</if>
-            <if test="user.createTime!=null and user.createTime!=''">
+            <if test="user.name != null and user.name != ''">
+                `username`=#{user.username,jdbcType=VARCHAR},
+            </if>
+            <if test="user.password != null and user.password != ''">
+                `password`=#{user.password,jdbcType=VARCHAR},
+            </if>
+            <if test="user.name != null and user.name != ''">
+                `name`=#{user.name,jdbcType=VARCHAR},
+            </if>
+            <if test="user.userType != null and user.userType != ''">
+                `user_type`=#{user.userType,jdbcType=INTEGER},
+            </if>
+            <if test="user.level != null and user.level != ''">
+                `level`=#{user.level,jdbcType=INTEGER},
+            </if>
+            <if test="user.sex != null and user.sex != ''">
+                `sex`=#{user.sex,jdbcType=VARCHAR},
+            </if>
+            <if test="user.createTime != null and user.createTime != ''">
                 `create_time`=#{user.createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="user.lastEditTime!=null and user.lastEditTime!=''">
+            <if test="user.lastEditTime != null and user.lastEditTime != ''">
                 `last_edit_time`=#{user.lastEditTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="user.birthday!=null and user.birthday!=''">`birthday`=#{user.birthday,jdbcType=VARCHAR},</if>
-            <if test="user.address!=null and user.address!=''">`address`=#{user.address,jdbcType=VARCHAR},</if>
-            <if test="user.phone!=null and user.phone!=''">`phone`=#{user.phone,jdbcType=VARCHAR},</if>
-            <if test="user.age!=null and user.age!=''">`age`=#{user.age,jdbcType=INTEGER},</if>
+            <if test="user.birthday != null and user.birthday != ''">
+                `birthday`=#{user.birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="user.address != null and user.address != ''">
+                `address`=#{user.address,jdbcType=VARCHAR},
+            </if>
+            <if test="user.phone != null and user.phone != ''">
+                `phone`=#{user.phone,jdbcType=VARCHAR},
+            </if>
+            <if test="user.age != null and user.age != ''">
+                `age`=#{user.age,jdbcType=INTEGER},
+            </if>
         </trim>
         where id = #{user.id,jdbcType=INTEGER}
     </update>

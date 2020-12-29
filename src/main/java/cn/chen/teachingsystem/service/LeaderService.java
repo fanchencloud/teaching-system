@@ -70,9 +70,10 @@ public interface LeaderService {
      * @param superviseId 督导的用户id
      * @param leaderId    领导的用户id
      * @param content     评价内容
+     * @param level       评优等级
      * @return 评价结果
      */
-    boolean evaluationSupervision(Integer superviseId, Integer leaderId, String content);
+    boolean evaluationSupervision(Integer superviseId, Integer leaderId, String content, String level);
 
     /**
      * 查询 评价教师 页面的教师列表
@@ -87,7 +88,7 @@ public interface LeaderService {
      * 获取评价某一位教师页面的信息
      *
      * @param teacherId 教师的用户id
-     * @param leaderId    领导的用户id
+     * @param leaderId  领导的用户id
      * @return 信息
      */
     Object evaluationTeacher(Integer teacherId, Integer leaderId);
@@ -101,4 +102,21 @@ public interface LeaderService {
      * @return 评价结果
      */
     boolean evaluationTeacher(Integer teacherId, Integer leaderId, String content);
+
+    /**
+     * 查看督导评价总结
+     *
+     * @param superviseId 督导编号
+     * @return 评价总结
+     */
+    Object viewSupervisorEvaluation(Integer superviseId);
+
+
+    /**
+     * 查看教师评估总结
+     *
+     * @param teacherId 教师编号
+     * @return 评价总结
+     */
+    Object viewTeacherEvaluationSummary(Integer teacherId);
 }

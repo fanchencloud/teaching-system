@@ -114,4 +114,6 @@ public interface CourseService {
      * @return 开设课程数量
      */
     Integer getNumberOfCourse(Integer teacherId);
+
+    List<Course> selfEvaluationList(Integer teacherId, Integer courseId, String courseName);
 }

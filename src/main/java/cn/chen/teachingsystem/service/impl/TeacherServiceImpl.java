@@ -5,10 +5,7 @@ import cn.chen.teachingsystem.entity.Questionnaire;
 import cn.chen.teachingsystem.entity.User;
 import cn.chen.teachingsystem.mapper.QuestionnaireDao;
 import cn.chen.teachingsystem.mapper.QuestionnaireListMapper;
-import cn.chen.teachingsystem.service.CourseService;
-import cn.chen.teachingsystem.service.QuestionnaireService;
-import cn.chen.teachingsystem.service.TeacherService;
-import cn.chen.teachingsystem.service.UserService;
+import cn.chen.teachingsystem.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,10 +39,16 @@ public class TeacherServiceImpl implements TeacherService {
      * 课程服务对象
      */
     private CourseService courseService;
+
     /**
      * 用户服务对象
      */
     private UserService userService;
+
+    /**
+     * 评价服务对象
+     */
+    private AppraiseService appraiseService;
 
     /**
      * 问卷服务对象
@@ -57,6 +60,48 @@ public class TeacherServiceImpl implements TeacherService {
         return questionnaireDao.selectByCourseId(courseId);
     }
 
+    /**
+     * 获取教师自己开设的课程列表
+     *
+     * @param teacherId  教师id（必须）
+     * @param courseId   课程编号
+     * @param courseName 课程名
+     * @return 可成功列表
+     */
+    @Override
+    public List<Course> selfEvaluationList(Integer teacherId, Integer courseId, String courseName) {
+        return courseService.selfEvaluationList(teacherId, courseId, courseName);
+    }
+
+    /**
+     * 教师自评页面获取自己开的课程信息
+     *
+     * @param teacherId 教师id
+     * @param courseId  课程编号
+     * @return 课程信息
+     */
+    @Override
+    public Map<String, Object> selfEvaluationPage(Integer teacherId, Integer courseId) {
+        Map<String, Object> map = new HashMap<>(2);
+        Course course = courseService.selectByPrimaryKey(courseId);
+        map.put("course", course);
+        User teacher = userService.getUserInformation(teacherId);
+        map.put("teacher", teacher);
+        return map;
+    }
+
+    /**
+     * 教师自评
+     *
+     * @param teacherId 教师id
+     * @param courseId  课程id
+     * @param content   自评内容
+     * @return 自评结果
+     */
+    @Override
+    public boolean selfEvaluation(Integer teacherId, Integer courseId, String content) {
+        return appraiseService.selfEvaluation(teacherId, courseId, content);
+    }
 
     @Autowired
     public void setQuestionnaireDao(QuestionnaireDao questionnaireDao) {
@@ -81,5 +126,10 @@ public class TeacherServiceImpl implements TeacherService {
     @Autowired
     public void setQuestionnaireService(QuestionnaireService questionnaireService) {
         this.questionnaireService = questionnaireService;
+    }
+
+    @Autowired
+    public void setAppraiseService(AppraiseService appraiseService) {
+        this.appraiseService = appraiseService;
     }
 }

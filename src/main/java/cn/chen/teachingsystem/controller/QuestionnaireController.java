@@ -40,61 +40,7 @@ public class QuestionnaireController {
     private CourseService courseService;
     private QuestionnaireService questionnaireService;
 
-    /**
-     * 管理员问卷管理页面
-     *
-     * @param courseId    课堂号
-     * @param courseName  课堂名
-     * @param teacherId   教师工号
-     * @param teacherName 教师姓名
-     * @return 问卷列表
-     */
-    @GetMapping(value = "/search")
-    @ResponseBody
-    @ApiOperation("获取问卷列表展示-管理员")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "课程编号", required = false, dataType = "String", dataTypeClass = String.class),
-            @ApiImplicitParam(name = "courseName", value = "课程名", required = false, dataType = "String", dataTypeClass = String.class),
-            @ApiImplicitParam(name = "teacherId", value = "教师工号", required = false, dataType = "String", dataTypeClass = String.class),
-            @ApiImplicitParam(name = "teacherName", value = "教师姓名", required = false, dataType = "String", dataTypeClass = String.class)})
-    public JsonResponse getQuestionnaireList(
-            @RequestParam(value = "courseId", required = false) Integer courseId,
-            @RequestParam(value = "courseName", required = false) String courseName,
-            @RequestParam(value = "teacherId", required = false) Integer teacherId,
-            @RequestParam(value = "teacherName", required = false) String teacherName) {
-        List<QuestionnaireList> questionnaireLists = questionnaireListMapper.selectByCondition(courseId, courseName, teacherId, teacherName, null);
-        for (int i = 0; i < questionnaireLists.size(); i++) {
-            QuestionnaireList questionnaireList = questionnaireLists.get(i);
-            User userInformation = userService.getUserInformation(questionnaireList.getQuestionnaire().getUserId());
-            questionnaireList.setAppraiser(userInformation.getName());
-            questionnaireLists.set(i, questionnaireList);
-        }
-        return JsonResponse.ok(questionnaireLists);
-    }
 
-    /**
-     * 管理员填写评价
-     *
-     * @param courseId 评价课程编号
-     * @param appraise 评价内容
-     * @return 评价结果
-     */
-    @PostMapping(value = "/fillEvalAdmin")
-    @ResponseBody
-    @ApiOperation("管理员填写评价")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "courseId", value = "课程编号", required = true, dataType = "Integer", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "appraise", value = "评价内容", required = true, dataType = "String", dataTypeClass = String.class)})
-    public JsonResponse fillInTheEvaluationByAdmin(Integer courseId, String appraise) {
-        Course course = new Course();
-        course.setId(courseId);
-        course.setContent(appraise);
-        if (courseService.modifyCourse(course)) {
-            return JsonResponse.ok();
-        } else {
-            return JsonResponse.errorMsg("评价失败");
-        }
-    }
 
     /**
      * 获取用户id为<P>userId</P>的督导员可以填写问卷的课程列表

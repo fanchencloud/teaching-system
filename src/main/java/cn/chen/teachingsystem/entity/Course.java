@@ -102,6 +102,12 @@ public class Course extends Base implements Serializable {
     private String type;
 
     /**
+     * 自评的课程id
+     */
+    @ApiModelProperty("自评的课程id")
+    private Integer courseId;
+
+    /**
      * 上课时间
      */
     @ApiModelProperty("上课时间")

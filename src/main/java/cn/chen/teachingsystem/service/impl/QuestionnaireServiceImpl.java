@@ -78,7 +78,6 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         elective.setUserId(questionnaire.getUserId());
         elective.setCourseId(questionnaire.getCourseId());
         elective.setFinish(2);
-
         if (electiveDao.updateByPrimaryKeySelective(elective) <= 0) {
             log.error("{}", "修改选课表数据失败！");
             throw new RuntimeException("修改选课表数据失败！");
