@@ -86,8 +86,8 @@ public class UserServiceImpl implements UserService {
         user.setPassword(password);
         user.setCreateTime(new Date());
         user.setLastEditTime(new Date());
-        User insertSelective = userDao.insertSelective(user);
-        if (insertSelective == null) {
+        int insertSelective = userDao.insertSelective(user);
+        if (insertSelective <= 0) {
             throw new RuntimeException("添加用户失败");
         }
         // 开始判断用户类型
@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
         // 注册用户为教师督导和专家
         else if (user.getUserType() == USER_TYPE_TEACHER_SUPERVISION || user.getUserType() == USER_TYPE_EXPERT) {
             Supervision supervision = new Supervision();
-            supervision.setUserId(insertSelective.getId());
+            supervision.setUserId(user.getId());
             supervision.setAmount(user.getLevel() == SUPERVISE_COURSE_TASK_TYPE_COLLEGE_LEVEL ? SUPERVISE_COURSE_TASK_AMOUNT_COLLEGE_LEVEL : SUPERVISE_COURSE_TASK_AMOUNT_SCHOOL_LEVEL);
             supervision.setFinish(0);
             supervision.setCreateTime(new Date());
