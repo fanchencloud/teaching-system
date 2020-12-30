@@ -44,7 +44,12 @@ public class SupervisionServiceImpl implements SupervisionService {
      */
     @Override
     public List<SupervisionModel> getSupervisorList(Integer userId, String userName) {
-        return supervisionDao.getSupervisorList(userId,userName);
+        return supervisionDao.getSupervisorList(userId, userName);
+    }
+
+    @Override
+    public boolean insertSupervision(Supervision supervision) {
+        return supervisionDao.insert(supervision) > 0;
     }
 
     @Autowired

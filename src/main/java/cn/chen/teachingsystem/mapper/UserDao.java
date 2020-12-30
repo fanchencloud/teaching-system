@@ -33,7 +33,7 @@ public interface UserDao {
      * @param user 用户信息
      * @return 添加结果
      */
-    int insertSelective(User user);
+    User insertSelective(User user);
 
     /**
      * 通过用户id查询用户的普通信息

@@ -55,7 +55,7 @@ public interface UserService {
      * @param user 用户信息
      * @return 添加结果
      */
-    boolean addUser(User user);
+    boolean addUser(User user) throws Exception;
 
     /**
      * 修改用户信息

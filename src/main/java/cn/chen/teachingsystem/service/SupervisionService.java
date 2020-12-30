@@ -40,4 +40,11 @@ public interface SupervisionService {
      * @return 督导列表
      */
     List<SupervisionModel> getSupervisorList(Integer userId, String userName);
+
+    /**
+     * 添加一个督导信息
+     * @param supervision 督导信息
+     * @return 添加结果
+     */
+    boolean insertSupervision(Supervision supervision);
 }

@@ -42,9 +42,9 @@ public class User extends Base implements Serializable {
     private String name;
 
     /**
-     * 用户类别：0-教师，1-专家，2-领导，3-管理员
+     * 用户类别：0-教师，1-专家，2-领导，3-管理员 4 - 教师督导
      */
-    @ApiModelProperty("用户类别：0-教师，1-专家，2-领导，3-管理员")
+    @ApiModelProperty("用户类别：0-教师，1-专家，2-领导，3-管理员 4 - 教师督导")
     private Integer userType;
 
     /**

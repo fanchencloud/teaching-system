@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ import static cn.chen.teachingsystem.conf.ApplicationConfig.USER_PASSWORD_ERROR;
  * @Description:
  */
 @Controller
+@Slf4j
 @Api(tags = "操作用户的请求")
 @RequestMapping(value = "/user")
 public class UserController {
@@ -44,11 +46,18 @@ public class UserController {
     @ResponseBody
     @ApiOperation("添加用户")
     public JsonResponse addUser(User user) {
-        boolean flag = userService.addUser(user);
+        boolean flag = false;
+        try {
+            flag = userService.addUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("添加用户数失败！失败原因：{}", e.getMessage());
+            return JsonResponse.errorMsg("添加失败！");
+        }
         if (flag) {
             return JsonResponse.ok();
         } else {
-            return JsonResponse.errorMsg("添加失败");
+            return JsonResponse.errorMsg("添加失败!");
         }
     }
 
