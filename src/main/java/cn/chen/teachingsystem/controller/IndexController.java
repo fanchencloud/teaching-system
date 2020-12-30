@@ -66,6 +66,7 @@ public class IndexController {
                 case 1 -> "expert/index";
                 case 2 -> "leader/index";
                 case 3 -> "admin/index";
+                case 4 -> "admin/index";
                 default -> "error/error";
             };
         } else {
