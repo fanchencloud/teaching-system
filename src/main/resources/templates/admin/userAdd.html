@@ -1,108 +1,109 @@
 ﻿<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>高校教学督导系统</title>
-    <link rel="stylesheet" href="../css/public.css"/>
-    <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="stylesheet" href="../css/administrator.css">
-</head>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head th:include="~{common/commonHead::myHead('高校教学督导系统')}"></head>
+
 <body>
 <!--头部-->
-<header class="publicHeader">
-    <h1>高校教学督导系统</h1>
+<div th:replace="common/common_body_head::body_head"></div>
+<div th:replace="common/common_time::time"></div>
 
-    <div class="publicHeaderR">
-        <p><span id="hours"></span><span>！</span><span style="color: #fff21b"> 管理员</span> , 欢迎你！</p>
-        <a href="/signOut">退出</a>
-    </div>
-</header>
-<!--时间-->
-<section class="publicTime">
-    <span id="time"></span>
-    <p>温馨提示：为了能正常浏览，请使用高版本浏览器！（IE10+）</p>
-</section>
 <!--主体内容-->
-<section class="publicMian ">
-    <div class="left">
-        <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
-        <nav>
-            <ul class="list">
-                <li id="active"><a href="userList.html">用户管理</a></li>
-                <li><a href="courseList.html">课程管理</a></li>
-                <li><a href="questionnaireList.html">问卷管理</a></li>
-                <li><a href="noticeList.html">公告管理</a></li>
-                <li><a href="evaluate.html">评优推优</a></li>
-                <li><a href="../login.html">退出系统</a></li>
-            </ul>
-        </nav>
-    </div>
+<section class="publicMian">
+    <div th:replace="admin/left_menu::menu"></div>
     <div class="right">
         <div class="location">
             <strong>你现在所在的位置是:</strong>
             <span>用户管理页面 >> 用户添加页面</span>
         </div>
-        <div class="providerAdd" >
+        <div class="providerAdd">
             <form action="#">
                 <!--div的class 为error是验证错误，ok是验证成功-->
                 <div>
-                    <label>用户账号：</label>
-                    <input type="text" name="userId"/>
+                    <label>用户登录名：</label>
+                    <input type="text" name="username" id="username"/>
                     <span>*请输入用户账号，且不能重复</span>
                 </div>
                 <div>
-                    <label>用户姓名：</label>
-                    <input type="text" name="userName"/>
-                    <span >*请输入用户姓名</span>
+                    <label>用户昵称：</label>
+                    <input type="text" name="nickname" id="nickname"/>
+                    <span>*请输入用户姓名</span>
                 </div>
                 <div>
                     <label>用户密码：</label>
-                    <input type="text" name="userpassword"/>
+                    <input type="text" name="password" id="password"/>
                     <span>*请输入用户密码</span>
 
                 </div>
                 <div>
                     <label>确认密码：</label>
-                    <input type="text" name="userRemi"/>
+                    <input type="text" name="userRemi" id="userRemi"/>
                     <span>*请输入确认密码</span>
                 </div>
                 <div>
                     <label>用户性别：</label>
-                    <input type="radio" name="userlei"/>男
-                    <input type="radio" name="userlei"/>女
+                    <select name="sex" id="sex">
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
                     <span>*</span>
                 </div>
                 <div>
                     <label>用户级别：</label>
-                    <input type="text" name="data"/>
-                    <span >*请输入院级或校级</span>
+                    <input type="radio" name="userLevel" value="0"/>院级
+                    <input type="radio" name="userLevel" value="1"/>校级
+                    <span>*请输入院级或校级</span>
                 </div>
-
+                <div>
+                    <label for="birthday">出生日期：</label>
+                    <input type="text" name="birthday" id="birthday" placeholder="2020-02-03"/>
+                    <!--                    <span>*</span>-->
+                </div>
+                <div>
+                    <label for="userPhone">用户电话：</label>
+                    <input type="tel" name="userPhone" id="userPhone"/>
+                    <!--                    <span>*</span>-->
+                </div>
+                <div>
+                    <label for="userAddress">用户地址：</label>
+                    <input type="text" name="userAddress" id="userAddress"/>
+                </div>
+                <div>
+                    <label for="age">年龄：</label>
+                    <input type="number" name="age" id="age"/>
+                </div>
+                <div>
+                    <label>用户类别：</label>
+                    <!-- 用户类别：0-教师，1-专家，2-领导，3-管理员 4 - 教师督导 -->
+                    <input type="radio" name="userType" value="0"/>教师
+                    <input type="radio" name="userType" value="1"/>专家
+                    <input type="radio" name="userType" value="2"/>领导
+                    <input type="radio" name="userType" value="3"/>管理员
+                    <input type="radio" name="userType" value="4"/>教师督导
+                    <span>*</span>
+                </div>
                 <div class="providerAddBtn">
                     <!--<a href="#">保存</a>-->
                     <!--<a href="userList.html">返回</a>-->
-                    <input type="submit" value="保存" onclick="history.back(-1)"/>
-                    <input type="button" value="返回" onclick="history.back(-1)"/>
+                    <input type="submit" value="添加" onclick="addUser()"/>
+                    <input type="button" value="返回" onclick="backToUserList()"/>
                 </div>
             </form>
         </div>
-
-
-
     </div>
 </section>
 <footer class="footer">
 </footer>
-<script src="../js/time.js"></script>
 <script type="text/javascript">
     function add(id) {
-        document.getElementById('export').style.display='none';
-        document.getElementById('teacher').style.display='none';
-        document.getElementById('supervisor').style.display='none';
-        document.getElementById('leader').style.display='none';
-        document.getElementById(id).style.display='block';
+        document.getElementById('export').style.display = 'none';
+        document.getElementById('teacher').style.display = 'none';
+        document.getElementById('supervisor').style.display = 'none';
+        document.getElementById('leader').style.display = 'none';
+        document.getElementById(id).style.display = 'block';
     }
 </script>
 
 </body>
+<th:block th:replace="common/common_js::common_js"/>
+<script src="/javascript/admin/userAdd.js"></script>
 </html>

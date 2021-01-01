@@ -45,7 +45,7 @@ public class UserController {
     @PostMapping(value = "/add")
     @ResponseBody
     @ApiOperation("添加用户")
-    public JsonResponse addUser(User user) {
+    public JsonResponse addUser(@RequestBody User user) {
         boolean flag = false;
         try {
             flag = userService.addUser(user);
@@ -55,7 +55,7 @@ public class UserController {
             return JsonResponse.errorMsg("添加失败！");
         }
         if (flag) {
-            return JsonResponse.ok();
+            return JsonResponse.ok("添加成功");
         } else {
             return JsonResponse.errorMsg("添加失败!");
         }
@@ -70,7 +70,7 @@ public class UserController {
     @PostMapping(value = "/modify")
     @ResponseBody
     @ApiOperation("修改用户信息")
-    public JsonResponse modifyUser(User user) {
+    public JsonResponse modifyUser(@RequestBody User user) {
         if (user == null || user.getId() == null) {
             return JsonResponse.errorMsg("缺少必要信息");
         }
@@ -164,15 +164,15 @@ public class UserController {
      * @param username 用户名
      * @return 用户信息
      */
-    @PostMapping("/search")
+    @GetMapping("/search")
     @ResponseBody
     @ApiOperation("请求查询用户的基本信息")
     public JsonResponse searchUser(
             @RequestParam(value = "userId", required = false) Integer userId,
             @RequestParam(value = "username", required = false) String username) {
-        if (userId == null && username == null) {
-            return JsonResponse.errorMsg("查询关键字不能都为空");
-        }
+//        if (userId == null && username == null) {
+//            return JsonResponse.errorMsg("查询关键字不能都为空");
+//        }
         List<User> userList = userService.findUserByUseridAndUsername(userId, username);
         return JsonResponse.ok(userList);
     }

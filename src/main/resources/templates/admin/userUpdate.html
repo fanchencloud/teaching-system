@@ -1,42 +1,15 @@
 ﻿<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>高校教学督导系统</title>
-    <link rel="stylesheet" href="../css/public.css"/>
-    <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="stylesheet" href="../css/administrator.css">
-</head>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head th:include="~{common/commonHead::myHead('高校教学督导系统')}"></head>
+
 <body>
 <!--头部-->
-<header class="publicHeader">
-    <h1>高校教学督导系统</h1>
+<div th:replace="common/common_body_head::body_head"></div>
+<div th:replace="common/common_time::time"></div>
 
-    <div class="publicHeaderR">
-        <p><span id="hours"></span><span>！</span><span style="color: #fff21b"> 管理员</span> , 欢迎你！</p>
-        <a href="/signOut">退出</a>
-    </div>
-</header>
-<!--时间-->
-<section class="publicTime">
-    <span id="time"></span>
-    <p>温馨提示：为了能正常浏览，请使用高版本浏览器！（IE10+）</p>
-</section>
 <!--主体内容-->
 <section class="publicMian ">
-    <div class="left">
-        <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
-        <nav>
-            <ul class="list">
-                <li id="active"><a href="userList.html">用户管理</a></li>
-                <li><a href="courseList.html">课程管理</a></li>
-                <li><a href="questionnaireList.html">问卷管理</a></li>
-                <li><a href="noticeList.html">公告管理</a></li>
-                <li><a href="evaluate.html">评优推优</a></li>
-                <li><a href="../login.html">退出系统</a></li>
-            </ul>
-        </nav>
-    </div>
+    <div th:replace="admin/left_menu::menu"></div>
     <div class="right">
         <div class="location">
             <strong>你现在所在的位置是:</strong>
@@ -46,47 +19,53 @@
             <form action="#">
                 <!--div的class 为error是验证错误，ok是验证成功-->
                 <div>
-                    <label for="userName">用户名称：</label>
-                    <input type="text" name="userName" id="userName" placeholder="韩露"/>
-                    <span >*</span>
+                    <label for="userName">用户名：</label>
+                    <input type="text" name="userName" id="userName" disabled/>
+                    <span>*</span>
+                </div>
+                <div>
+                    <label for="nickname">用户昵称：</label>
+                    <input type="text" name="nickname" id="nickname"/>
+                    <span>*</span>
                 </div>
 
                 <div>
-                    <label >用户性别：</label>
-
-                    <select name="">
-                        <option value="man">男</option>
-                        <option value="woman" selected>女</option>
+                    <label>用户性别：</label>
+                    <select name="" id="userSex">
+                        <option value="男">男</option>
+                        <option value="女" selected>女</option>
                     </select>
+                    <span>*</span>
                 </div>
                 <div>
-                    <label for="data">出生日期：</label>
-                    <input type="text" name="data" id="data" placeholder="2016年2月1日"/>
-                    <span >*</span>
+                    <label for="birthday">出生日期：</label>
+                    <input type="text" name="birthday" id="birthday"/>
+<!--                    <span>*</span>-->
                 </div>
                 <div>
-                    <label for="userphone">用户电话：</label>
-                    <input type="text" name="userphone" id="userphone" placeholder="13533667897"/>
-                    <span >*</span>
+                    <label for="userPhone">用户电话：</label>
+                    <input type="tel" name="userPhone" id="userPhone"/>
+                    <!--                    <span>*</span>-->
                 </div>
                 <div>
                     <label for="userAddress">用户地址：</label>
-                    <input type="text" name="userAddress" id="userAddress" placeholder="北京"/>
+                    <input type="text" name="userAddress" id="userAddress"/>
                 </div>
                 <div>
-                    <label >用户类别：</label>
-                    <input type="radio" name="userlei"/>管理员
-                    <input type="radio" name="userlei"/>专家
-                    <input type="radio" name="userlei"/>教师
-                    <input type="radio" name="userlei"/>教师督导
-                    <input type="radio" name="userlei"/>领导
-
+                    <label for="age">年龄：</label>
+                    <input type="number" name="age" id="age"/>
+                </div>
+                <div>
+                    <label>用户级别：</label>
+                    <input type="radio" name="userLevel" value="0"/>院级
+                    <input type="radio" name="userLevel" value="1"/>校级
+                    <span>*</span>
                 </div>
                 <div class="providerAddBtn">
                     <!--<a href="#">保存</a>-->
                     <!--<a href="userList.html">返回</a>-->
-                    <input type="button" value="保存" onclick="history.back(-1)"/>
-                    <input type="button" value="返回" onclick="history.back(-1)"/>
+                    <input type="button" value="修改" onclick="modifyUser()"/>
+                    <input type="button" value="返回" onclick="backToUserList()"/>
                 </div>
             </form>
         </div>
@@ -95,7 +74,7 @@
 </section>
 <footer class="footer">
 </footer>
-<script src="../js/time.js"></script>
-
 </body>
+<th:block th:replace="common/common_js::common_js"/>
+<script src="/javascript/admin/userUpdate.js"></script>
 </html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<!--左侧菜单-->
+<div th:fragment="menu" class="left">
+    <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
+    <nav>
+        <ul class="list">
+            <li><a href="/page/admin/userList">用户管理</a></li>
+            <li><a href="/page/admin/courseList">课程管理</a></li>
+            <li><a href="questionnaireList.html">问卷管理</a></li>
+            <li><a href="expertEvaluate.html">督导评价</a></li>
+            <li><a href="noticeList.html">公告管理</a></li>
+            <li><a href="../login.html">退出系统</a></li>
+        </ul>
+    </nav>
+</div>

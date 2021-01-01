@@ -18,8 +18,44 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping(value = "/page/admin")
 public class AdminPageController {
 
+    @GetMapping(value = "/index")
+    public String index() {
+        return "admin/index";
+    }
+
     @GetMapping(value = "/userList")
     public String userList() {
         return "admin/userList";
     }
+
+    @GetMapping(value = "/userView")
+    public String userView() {
+        return "admin/userView";
+    }
+
+    @GetMapping(value = "/userUpdate")
+    public String userUpdate() {
+        return "admin/userUpdate";
+    }
+
+    @GetMapping(value = "/userAdd")
+    public String userAdd() {
+        return "admin/userAdd";
+    }
+
+    @GetMapping(value = "/courseList")
+    public String courseList() {
+        return "admin/courseList";
+    }
+
+    @GetMapping(value = "/courseUpdate")
+    public String courseUpdate() {
+        return "admin/courseUpdate";
+    }
+
+//    @GetMapping(value = "/courseList")
+//    public String courseList() {
+//        return "admin/courseList";
+//    }
+
 }

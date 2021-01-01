@@ -52,6 +52,22 @@ public class SupervisionServiceImpl implements SupervisionService {
         return supervisionDao.insert(supervision) > 0;
     }
 
+    @Override
+    public Supervision getSupervisor(Integer userId) {
+        return supervisionDao.selectByUserId(userId);
+    }
+
+    /**
+     * 更新督导信息
+     *
+     * @param s
+     * @return
+     */
+    @Override
+    public boolean updateSupervision(Supervision s) {
+        return supervisionDao.updateByPrimaryKeySelective(s) > 0;
+    }
+
     @Autowired
     public void setSupervisionDao(SupervisionDao supervisionDao) {
         this.supervisionDao = supervisionDao;

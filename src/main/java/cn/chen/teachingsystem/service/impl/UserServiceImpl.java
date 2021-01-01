@@ -1,5 +1,6 @@
 package cn.chen.teachingsystem.service.impl;
 
+import cn.chen.teachingsystem.conf.ApplicationConfig;
 import cn.chen.teachingsystem.entity.Supervision;
 import cn.chen.teachingsystem.entity.User;
 import cn.chen.teachingsystem.mapper.UserDao;
@@ -80,7 +81,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addUser(User user) throws Exception{
+    public boolean addUser(User user) throws Exception {
         // 加密密码
         String password = MD5Utils.encryption(user.getPassword(), user.getUsername());
         user.setPassword(password);
@@ -111,13 +112,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean modifyUser(User user) {
         if (user.getId() == null) {
             return false;
         }
         user.setUsername(null);
         user.setPassword(null);
-        return userDao.updateByPrimaryKeySelective(user) > 0;
+        if (userDao.updateByPrimaryKeySelective(user) <= 0) {
+            throw new RuntimeException("更新用户信息失败！");
+        }
+        // 如果修改了用户级别，更新督导表的任务量
+        Supervision s = supervisionService.getSupervisor(user.getId());
+        if (s != null) {
+            // 存在该督导用户
+            int amount = user.getLevel() == SUPERVISE_COURSE_TASK_TYPE_COLLEGE_LEVEL ? SUPERVISE_COURSE_TASK_AMOUNT_COLLEGE_LEVEL : SUPERVISE_COURSE_TASK_AMOUNT_SCHOOL_LEVEL;
+            Supervision temp = new Supervision();
+            temp.setAmount(amount);
+            temp.setId(s.getId());
+            // 更新数据
+            if (!supervisionService.updateSupervision(temp)) {
+                throw new RuntimeException("更新督导信息失败！");
+            }
+        }
+        return true;
     }
 
     @Override

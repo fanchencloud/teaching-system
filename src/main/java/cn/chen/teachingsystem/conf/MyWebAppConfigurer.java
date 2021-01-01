@@ -33,8 +33,8 @@ public class MyWebAppConfigurer implements WebMvcConfigurer {
         registry.addInterceptor(getMyInterceptor())
                 .addPathPatterns("/**")
                 //排除的路径：静态资源路径。防止被JdkApiInterceptor拦截
-                .excludePathPatterns("/login", "/swagger-ui/*", "/error/**", "/js/**", "/css/**", "/img/**",
-                        "/swagger-resources/**", "/webjars/**", "/swagger-ui.html/**","/v3/**");
+                .excludePathPatterns("/login", "/swagger-ui/*", "/error/**", "/js/**", "/javascript/**", "/css/**", "/img/**", "/favicon.ico",
+                        "/swagger-resources/**", "/webjars/**", "/swagger-ui.html/**", "/v3/**");
         ;
     }
 

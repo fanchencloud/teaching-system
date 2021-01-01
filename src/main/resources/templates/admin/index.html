@@ -1,58 +1,28 @@
 <!DOCTYPE html>
-<html>
-
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>高校教学督导系统</title>
-    <link rel="stylesheet" href="/css/public.css" />
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/administrator.css">
-</head>
-
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head th:include="~{common/commonHead::myHead('高校教学督导系统')}"></head>
 
 <body>
-    <!--头部-->
-    <header class="publicHeader">
-        <h1>高校教学督导系统</h1>
+<!--头部-->
+<div th:replace="common/common_body_head::body_head"></div>
+<div th:replace="common/common_time::time"></div>
 
-        <div class="publicHeaderR">
-            <p><span id="hours"></span><span>！</span><span style="color: #fff21b"> 管理员</span> , 欢迎你！</p>
-            <a href="/signOut">退出</a>
+<!--主体内容-->
+<section class="publicMian">
+    <div th:replace="admin/left_menu::menu"></div>
+    <div class="right">
+        <img class="wColck" src="/img/clock.jpg" alt=""/>
+        <div class="wFont">
+            <h2>管理员</h2>
+            <p>欢迎来到高校教学督导系统!</p>
         </div>
-    </header>
-    <!--时间-->
-    <section class="publicTime">
-        <span id="time"></span>
-        <p>温馨提示：为了能正常浏览，请使用高版本浏览器！（IE10+）</p>
-    </section>
-    <!--主体内容-->
-    <section class="publicMian">
-        <div class="left">
-            <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
-            <nav>
-                <ul class="list">
-                    <li><a href="/page/admin/userList">用户管理</a></li>
-                    <li><a href="courseList.html">课程管理</a></li>
-                    <li><a href="questionnaireList.html">问卷管理</a></li>
-                    <li><a href="noticeList.html">公告管理</a></li>
-                    <li><a href="evaluate.html">评优推优</a></li>
-                    <li><a href="../login.html">退出系统</a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="right">
-            <img class="wColck" src="/img/clock.jpg" alt="" />
-            <div class="wFont">
-                <h2>管理员</h2>
-                <p>欢迎来到高校教学督导系统!</p>
-            </div>
-        </div>
-    </section>
-    <footer class="footer">
-    </footer>
-    <script src="/js/time.js"></script>
-    <div style="text-align:center;">
     </div>
-</body>
+</section>
+<footer class="footer">
+</footer>
 
+<div style="text-align:center;">
+</div>
+</body>
+<th:block th:replace="common/common_js::common_js"/>
 </html>

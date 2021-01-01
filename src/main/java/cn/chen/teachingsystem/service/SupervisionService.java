@@ -43,8 +43,25 @@ public interface SupervisionService {
 
     /**
      * 添加一个督导信息
+     *
      * @param supervision 督导信息
      * @return 添加结果
      */
     boolean insertSupervision(Supervision supervision);
+
+    /**
+     * 根据督导表编号查询督导信息
+     *
+     * @param id
+     * @return
+     */
+    Supervision getSupervisor(Integer id);
+
+    /**
+     * 更新督导信息
+     *
+     * @param s
+     * @return
+     */
+    boolean updateSupervision(Supervision s);
 }
