@@ -1,11 +1,11 @@
-let courseId;
+let userId;
 // 页面加载完成自动执行
 $(function () {
     // 获取请求参数
-    const urlSearch = getUrlSearch("courseId");
+    const urlSearch = getUrlSearch("userId");
     if (!validateParameterRequired(urlSearch)) {
         // 请求为空，直接跳转回用户页面
-        window.location.href = "/page/admin/courseList";
+        window.location.href = "/page/admin/userList";
     }
     // 查询课程信息
     $.get("/user/userInfo?userId=" + urlSearch, function (response) {
